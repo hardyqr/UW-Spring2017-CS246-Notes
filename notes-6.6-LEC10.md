@@ -31,15 +31,16 @@ struct vec {
 	}
 };
 
-	vec v; // not allowed 
-	vec v{1,2}; // works
+vec v; // not allowed 
+vec v{1,2}; // works
 ```
 
 
 ### Fields that are constants / Reference
 	
 ```cpp
-int x; //...
+int x; 
+//...
 struct myStruct {
 	const int a = 5; // in class initialization
 	int &y = x;
@@ -53,7 +54,7 @@ struct student{
 	//...
 };
 
-// while id needs to be a const, ythe value needs to be different for each student object
+// while id needs to be a const, the value needs to be different for each student object
 
 ```
 
@@ -94,10 +95,10 @@ struct student {
 
 - Fileds in the MIL are always initilalized in class declaration order
 
- - Using the MIL can be more efficient than using the constructor body
+- Using the MIL can be more efficient than using the constructor body
 
  ```cpp
-vec student {
+vec student{
 	int x = 0;
 	int y = 0;
 	vec(int x_value, int y_value) : 
@@ -117,7 +118,7 @@ student bobby = billy; // same as the next line
 student bobby{billy}; // same as the previous line
 ```
 
-bobby is a copy of billy object.
+- `bobby` is a copy of `billy` object.
 
 Copy constructor is used to construct an object as a copy of an existing object.
 - **you get a copy constructor for free** // how do we understand **for free**?
@@ -136,7 +137,7 @@ Copy constructor is used to construct an object as a copy of an existing object.
 A copy constructor always takes a single reference of the class as a parameter.
 
  ```cpp
-struct student {
+struct student{
 	int assns,mt,final;
 	student(const student &other): 
 		assns{other.assns}, 
@@ -214,6 +215,6 @@ void foo(Node n){ //... }
 foo(4); // legal
 ```
 
-Single parameter constructor define implicit automatic conversions
+Single parameter constructor defines implicit automatic conversions
 
 `string str = "hello"` means there is a constructor in `string`

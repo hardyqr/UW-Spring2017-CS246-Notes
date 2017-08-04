@@ -21,24 +21,23 @@ vec add(vec v1, vec v2);
 
 add(v1,v2);
 
- // vec v3 v1+v2
+// vec v3 = v1+v2
 vec operator+(const vec &LHS, const vec &RHS){
 	vec v{LHS.x+RHS.x,LHS.y+RHS.y};
 	return v;
 }
 
- // vec v4=3*v3
+// vec v4 = 3*v3
 vec operator*(int k, const vec &v){
 	return {k*v.x, k*v.y};
 }
 
- // vec v5=v4*5
+// vec v5 = v4*5
 vec operator(const vec &v, int k){
-	return k*v;
+	return k*v; // * is already overloaded
 }
-// ??? check: is this a typo?
 
-// vec v6 = v1+v2+v3
+// vec v6 = v1 + v2 + v3
 // -> vtemp+v3
 // -> vtemp2
 ```
@@ -53,12 +52,13 @@ Grade g;
 cout<<g; // cout<<g<<endl; // if you want a newline
 
 operator<<(ostream &out,const Grade &g){
+	// ??? 既然是传const Grade 何必要是reference?
 	out<<"your grade:"<<g.mark<<"%";
 	return out;
 }
 
 Grade g;
-cin>>g;
+cin >> g;
 
 iostream &operator>>(istream &in, Grade &g){
 	in >> g.mark;
@@ -67,22 +67,23 @@ iostream &operator>>(istream &in, Grade &g){
 	return in;
 }
 ```
-### can't understand. question mark here.
 
 
 ## Preprocessor
 
 Before the compiler sees the code, the preprocessor runs.
 
-- `#` --- preprocessor ( a directive
+- `#` --- preprocessor, a directive
 
 `#include<iostream>` <br>
 - copy and paste 
 
 `#include </*...*/>`
-- include file from standard library ( /usr/share/c++  /sur/include/c++)
+- include file from standard library ( `/usr/share/c++`  `/sur/include/c++`)
 
-`#include "/*...*/" // "/*...*/" means path`
+```
+#include "/*...*/" // "/*...*/" means path
+```
 
 `g++14 -E -P file.cc`
 - only runs the preprocessor
@@ -90,10 +91,10 @@ Before the compiler sees the code, the preprocessor runs.
 `#define VAR VALUE`
 - search and replace all occurences of VAR with VALUE
 
-using this is discouraged. use const instead.
+using this is discouraged. use `const` instead.
 
 ```cpp
-#define ever ;;
+#define ever ;; //???
 
 for(ever) {...}
 ```
@@ -102,16 +103,16 @@ for(ever) {...}
 ### Conditional Completion
 Suppose we want a variable of type `short int` but BBOS needs `long long int`.
 
-(see preprocess.cc
+(see `preprocess.cc`)
 
 By changing OS to IOS or BBOS we can change the type of "public key".
 Problem: the change was done manually.
 
 The `-D` compile argument allows setting preprocessor variable from the command line.
 
-syntax: `g++14 -E -P -D VAR=BALUE files`
+syntax: `g++14 -E -P -D VAR=VALUE [files]`
 
-eg: `g++14 -E -P -DOS=IOS preprocess.cc`
+eg: `g++14 -E -P -D OS=IOS preprocess.cc`
 
 
 
@@ -128,20 +129,20 @@ eg: `g++14 -E -P -DOS=IOS preprocess.cc`
 the `#` comment syntax allows nesting
 
 `#define FLAG`
-- value of FLAG is the empty string
+- value of `FLAG` is the empty string
 
 
 `#ifdef VAR // if VAR is defined`
 `#ifndef VAR // if not`
 
-see Debug.cc
+(see `Debug.cc`)
 
 
 ### Separate Compilation
-Interface files (header files .h)
+Interface files (header `files .h`)
 - type definition, forward declarations<br>
 
-Implementation file (.cc)<br>
+Implementation file (`.cc`)<br>
 - function implementation
 
 NEVER compile header files

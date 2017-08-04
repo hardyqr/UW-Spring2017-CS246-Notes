@@ -67,7 +67,7 @@ struct Node{
 	Node &operator=(const Node &others) {
 		data = others.data;
 		delete next;
-		next = others?new Node(*otehrs.next):nullptr;
+		next = others.next?new Node(*otehrs.next):nullptr;
 		return *this;
 	}
 };
@@ -110,10 +110,10 @@ struct Node{
 
 ```
 ```cpp
-Node &operator=(/*...*/){
-	if(/*...*/) return *this;
+Node &operator=(const Node &other){
+	if(this == &other) return *this;
 	Node *tmp = next;
-	next = others.next?new Node(*other.next):nullptr;
+	next = other.next?new Node(*other.next):nullptr;
 	dalete tmp;
 	data = other.data;
 	return *this;
@@ -127,10 +127,11 @@ Node &operator=(/*...*/){
 #include <utility>
 struct Node{
 	//...
-	void swap(Node &other)
+	void swap(Node &other){
 		using std::swap;
-	swap(data, other.data);
-	swap(next, other.next);
+		swap(data, other.data);
+		swap(next, other.next);
+	}
 }
 ```
 
@@ -148,6 +149,6 @@ Node &operator=(const Node &others){
 		- relies on correctly implemented destructor
 
 
-see `classes.cc`/`rvalue.cc`	
+(see `classes.cc`/`rvalue.cc`)
 
 

@@ -2,13 +2,13 @@
 # LEC09 Seperate Completion / C++ Classes
 
 ## Seperate Completion
-`g++14 vector.cc`
+`g++14 vector.cc` <br>
 -compiler tries to compile, link and produce executable
 
 We can use `-c` option to tell the compiler to only compile.
 
 `g++14 -c main.cc`
-`g++14 -c vector.cc`
+`g++14 -c vector.cc`<br>
 
 - we get `.o` object files after running above
 - tiny pieces of the executable
@@ -26,14 +26,15 @@ in `abc.cc`
 
 `int global; // declaration of definition`
 
-- never compile a `.cc` file
-- never include a `.h` file
+- never compile a `.h` file
+- never include a `.cc` file
 
-look at `preprocess/example2`
+(see `preprocess/example2`)
 
 
 ###
 
+	???
 
 
 - Always put include guards in header files
@@ -42,7 +43,7 @@ look at `preprocess/example2`
 
 ## C++ Classes
 Big OOP Idea:<br>
-Let's put function inside a structire.
+Let's put function inside a structure.
 
 ```cpp
 struct student{
@@ -58,10 +59,10 @@ cout<<billy.grade()<<endl;
 
 ```
 
-A class is simply a struct that may contain function.
-- "class" keyword later
+A `class` is simply a struct that may contain function.
+- `class` keyword later
 
-- An instance of a class is called an object, i.e. a value of type student is a student object.
+- An instance of a class is called an object, ie. a value of type `student` is a `student` object.
 
 - A function defined inside a class is called a **member function** or **method**. `grade()` is a **method**.
 
@@ -72,9 +73,9 @@ grade(); // not allowed
 ```
 ### Functions vs Methods
 
-A method has a hidden parameter called "this". "this" is a pointer to the method on which the method was called.
+A method has a hidden parameter called `this`. `this` is a pointer to the method on which the method was called.
 
-- inside grade, `this` $==$ `&billy`
+- inside `grade`, `this` == `&billy`
 
 ```cpp
 student jane{70,70,70};
@@ -120,12 +121,12 @@ struct student{
 };
 
 ```
-- If a 3 parameters constructor has been implemented it is called
+- If a 3-parameter-constructor has been implemented, it is called
 - Otherwise this uses C style initialization 
 
 ```cpp
-student billy=student{60,70,80};
-student billy=student(60,70,80); // we are actually calling the student method inside method class
+student billy = student{60,70,80};
+student billy = student(60,70,80); // we are actually calling the student method inside method class
 // they're equivalent.
 ```
 #### Uniform Initialization
