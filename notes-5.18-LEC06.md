@@ -1,18 +1,16 @@
-# CS246 LEC07
+# CS246 LEC06
+# More I/O, Short topics
 
 
-More I/O, Short topics
-
-
-Read/write to files
+### Read/write to files
 `#include<ifstream>`
-- ifstream -- read from files
-- ofstream -- write to files
+- `ifstream` -- read from files
+- `ofstream` -- write to files
 e.g. read + output contents of a file to readfile.cc
 
 ```cpp
-int main() {i
-	fstream filename{"myfile.txt"};
+int main() {
+	ifstream filename{"myfile.txt"};
 	//type, varname, init value
 	string s;
 	while(filestream>>s) {
@@ -27,14 +25,14 @@ int main() {i
 - The file is automatically closed when filestream variable goes out of scope.
 
 
-- You can use ifstream variable exactly like cin (istream).
-- You can use ofsteam variable exactly like cout (ostream).
+- You can use `ifstream` variable exactly like `cin` (`istream`).
+- You can use `ofsteam` variable exactly like `cout` (`ostream`).
 
 You can use strings as a source of data.
 
 `#include<sstream>`
-- istringstream -- read from strings
-- ostringstream -- write to a string
+- `istringstream` -- read from strings
+- `ostringstream` -- write to a string
 
 
 ```cpp
@@ -55,15 +53,14 @@ int main(){
 - if `ss>>num` fails (intput not numbers), we don't need `ss.clear()` as `ss` is a local variable that is created 
 
 ## String
-In C, we use char arrays that are bull terminated.
+In C, we use char arrays that are null terminated (`\0`). 
 - explicitly manage array length
 
 C++ lib provides string type
-- automatically resize if nedded
+- automatically resize if needed
 
 `string s = "hello";`
-
-automatically convert a char array to C++ string, MAGIC!
+- automatically convert a char array to C++ string, MAGIC!
 
 
 
@@ -78,7 +75,8 @@ automatically convert a char array to C++ string, MAGIC!
 
 ## Default Arguments
 ```cpp
-void printFile(string name="myfile.txt") { // if no input,m this default "myfile.txt" gets used.
+void printFile(string name="myfile.txt") { 
+	// if no input, this default "myfile.txt" gets used.
 	string s;
 	ifstream filestream filestream{name};
 	while(filestream>>s) {
@@ -91,12 +89,12 @@ To call,
 
 ```cpp
 printFile(); // uses default
-printFile("file2.txt");
+printFile("file2.txt"); // use "file2.txt"
 ```
 - cannot follow a parameter with a default value with a parameter that does not have a default value.
 ```cpp
-void test1(int num=0, string str); // not allowed
-void test2(int num=0, string str="bla"); // legal
+void test1(int num = 0, string str); // not allowed
+void test2(int num = 0, string str = "bla"); // legal
 ```
 - If you're going to leave out on argument, it must be the last (or last n).
 ```cpp
@@ -108,7 +106,7 @@ test2(,"bla")//illegal
 ```
 
 ## Function overloading
-In C++ we can have functions that have the same name as long as differs inthe number or types of parameters, 
+In C++ we can have functions that have the same name as long as differs in the number or types of parameters.
 - Just differing on the return type is not ok.
 ```cpp
 int neg(int a) {return -1;}

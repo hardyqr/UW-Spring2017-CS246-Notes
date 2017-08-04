@@ -29,11 +29,11 @@ operator>>(cin,x);
 
 In C++, we have anothewr kind of "pointer-like" type: references.
 
-Lvalue References
+### Lvalue References
 
 ```cpp
 int y = 10;
-int &z = y; // z is a evalue reference to y
+int &z = y; // z is a rvalue reference to y //???
 ```
 
 `z` acts like a constant pointer to `y`.
@@ -63,13 +63,13 @@ int &z; //wrong
 
 > Anything that can appear on the left-hand side of an assignment expression is an lvalue.
 
-l value is a storage location (sth to do with address) 
--	anything that can appear on LHS of an assignment 
+Lvalue is a storage location (sth to do with address) 
+- anything that can appear on LHS of an assignment 
 
 
 Rvalue - acomputed value (temporary)
 
-`x+y;`
+- eg. `x+y;`
 
 - anything that can appear on the RHS of an assignment
 
@@ -120,7 +120,7 @@ operator>>(operator>>(cin,x),y);
 
 ```
 
-Pass by value vs Pass by Reference
+### Pass by value vs Pass by Reference
 ```cpp
 struct ReallyBig {/*...*/};
 int f(ReallyBig rb) {/*...*/};
@@ -184,17 +184,17 @@ Node *np = new Node;
 ```
 
 
-- you get exactly the amount of memory needed by Node.
+- you get exactly the amount of memory needed by `Node`
 To free,
 
 ```cpp
-delete np; \\ np must be a ptr returned by a call to new
+delete np; // np must be a ptr returned by a call to new
 ```
 
 
 ```cpp
 Node n;
-Node *np=new Node;
+Node *np = new Node;
 // np is a ptr on stack
 // n is on stack 
 // new Node is on heap 
@@ -227,7 +227,7 @@ Node *getMeNode() {
 
 Never return a ptr/reference to stack allocated data.
 
-
+The right thing to do:
 
 
 
