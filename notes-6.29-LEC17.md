@@ -1,5 +1,5 @@
 # CS246
-# Lecture 17: templates, Exceptions
+# Lecture 17: Templates, Exceptions
 
 ## Template
 
@@ -9,10 +9,10 @@ class Stack{
 	int cap;
 	int *contents;
 	public:
-		Stack(){/*...*/}
-		void push(int x){/*...*/}
-		int top(){/*...*/}
-		void pop(){/*...*/}
+	Stack(){...}
+	void push(int x){...}
+	int top(){...}
+	void pop(){...}
 
 };
 ```
@@ -26,10 +26,10 @@ class Stack{
 	int cap;
 	T *contents;
 	public:
-		Stack(){/*...*/}
-		void push(T x){/*...*/}
-		int top(){/*...*/}
-		void pop(){/*...*/}
+	Stack(){...}
+	void push(T x){...}
+	int top(){...}
+	void pop(){...}
 
 };
 
@@ -37,12 +37,8 @@ Stack<int> sInts;
 sInts.push(1);
 
 Stack<Expression *> sExps;
-sExps.push(/*...*/);
-
-
+sExps.push(...);
 ```
-
-
 
 ```cpp
 class List{
@@ -63,14 +59,14 @@ class List{
 	public:
 	class Iterator{
 		Node *curr;
-		explicit Iterator(/*...*/) {/*...*/}
+		explicit Iterator(...) {...}
 		public:
-			T &operator*(){/*...*/}
-			//...
-			friend class List<T>;
+		T &operator*(){...}
+		//...
+		friend class List<T>;
 	};
-	void addToFront(const T &t){/*...*/}
-	T ith(int i){/*...*/}
+	void addToFront(const T &t){...}
+	T ith(int i){...}
 };
 
 List<int> l1;
@@ -79,10 +75,9 @@ l1.addToFront(10);
 List<List<int>> l2;
 l2.addToFront(l1);
 
-for(List<int>::iterator it = l1.begin(); it != l1.end(); ++it){/*...*/}
-// can replace `List<int>::iterator` with `auto`
-
+for(List<int>::iterator it = l1.begin(); it != l1.end(); ++it){...}
 ```
+- can replace `List<int>::iterator` with `auto`
 
 ### STL Library
 
@@ -242,7 +237,7 @@ try{
 	//...
 } catch(someExp e){
 	// partial recovery
-	throw someOtherExp {/*...*/};
+	throw someOtherExp {...};
 	throw e;// OR throw // they have subtle difference?
 }
 ```
