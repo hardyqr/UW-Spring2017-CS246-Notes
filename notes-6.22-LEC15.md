@@ -10,7 +10,8 @@
 |-y: Integer|
 |+getX: Integer|
 |+getY: Integer|
-`// what does optional mean?`
+
+// ??? what does optional mean?
 
 - `-` indicates private
 - `+` indicates public
@@ -20,9 +21,9 @@
 class Vec{ 
 	int x, y;
 	public:
-		Vec(int x, int y): 
-			x{x},
-			y{y} {}
+	Vec(int x, int y): 
+		x{x},
+		y{y} {}
 };
 
 class Basis{
@@ -94,7 +95,7 @@ Composition: embedding an object inside another
 |- title: String|
 |- author: String|
 |- numPages: Integer|
-|- herp: String|
+|- hero: String|
 
 - In C
  	- union type 
@@ -121,10 +122,10 @@ Anything you can do with `cin` (`istream`) you can do with variabels of `ifstrea
 Rule: since `title`, `author`, `numPages` is private in `Book`, it is not accessible
 
 ```cpp
-class Text:public Book{ //???
+class Text:public Book{
 	string topic;
 	public: 	
-		Text:(/*...*/):title{/*...*/} /*...*/ {}
+	Text:(/*...*/):title{/*...*/} /*...*/ {}
 };
 // won't compile
 ```
@@ -147,8 +148,8 @@ class Text:public Book{ //???
 	Text::Text(string title, string author, int numPages, string topic):
 		Book{title, author, numPages},
 		topic{topic}, {}
-	// this sompiles
-		```
+	// this compiles
+	```
 
 ### Protected Visibility
 
@@ -156,30 +157,30 @@ class Text:public Book{ //???
 
 class Book{
 	protected:
-		string title, author;
-		int numPages;
+	string title, author;
+	int numPages;
 	public:
-		// ...
+	// ...
 };
 ```
 Protected members are accessible by **the class** but also **the subclass**.
 
 
-The text class could implement :
+The `Text` class could implement:
 
 ```cpp
 void Text::addAuthor(string auth){
 	author += auth;
 }
-
 ```
 - can access `author` as `Text` is a child and `author` is protected
 
 ```cpp
 
 int main(){
-	Text t = //...;
-	t.author = //...; // won't compile
+	Text t = //...
+	t.author = //...
+   	// won't compile
 }
 ```
 
@@ -191,7 +192,7 @@ int main(){
 
 ADVICE: keep fields private, if needed, give protected
 
-- `accessors/mutators`
+(see `accessors/mutators`)
 
 ```cpp
 class Book{

@@ -197,8 +197,10 @@ ostream &operator<<(ostream &out, const vec &other){ // why "other" has to be a 
 
 |Vec|
 |---|
-|-x: Integer  -y: Integer|
-|+getx: Integer +gety: Integer|
+|-x: Integer|  
+|-y: Integer|
+|+getx: Integer| 
+|+gety: Integer|
 
 - `-` indicates private
 - `+` indicates public

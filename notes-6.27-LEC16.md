@@ -2,11 +2,11 @@
 # Lecture 16: Method Overrdding, Dynamic Dispatch
 
 
-- Book isHeavy if > 200 pages
+- Book `isHeavy` if > 200 pages
 - Text > 500 pages
 - Comic > 30 pages
 
-- `c++/inheritance/example2`
+`c++/inheritance/example2`
 
 ```cpp
 class Book{
@@ -30,7 +30,7 @@ Comic c{"BigComic","auth",40,"Batman"};
 
 c.isHeavy();// Comic::isHeavy runs, true
 
-Book b2 = comic{"BigComic",auth",40,"Batman"}; // legal because comic is a book
+Book b2 = comic{"BigComic",auth,40,"Batman"}; // legal because comic is a book
 
 b2.isHeavy(); // Book::isHeavy runs
 
@@ -55,7 +55,7 @@ b2.isHeavy(); // Book::isHeavy runs
 
 
 ```cpp
-Comic c(/*...*/,/*...*/,40,/*...*/);
+Comic c(...,...,40,...);
 
 Comic *cp{&c};
 cp->isHeavy(); // Comic::isHeavy runs
@@ -72,21 +72,21 @@ bp->isheavy(); // Book::isHeavy runs
  	- we'd like to use `Book` ptrs to point to any kind of `Book`, but still have the overriden methods run
 	- use keyword `virtual`
 
-- `inheritance/example3`
+`inheritance/example3`
 
 ```cpp
 
 class Book{
 	public:
-	virtual bool isHeavy() const{/*...*/}
+	virtual bool isHeavy() const{...}
 };
 
 class Comic:public Book{
 	public:
-	file:///Users/Fangyu/Google%20Drive/Courses/Waterloo/Taking/CS246/notes/notes-6.27-LEC16.mdbool isHeavy()const override{/*...*/}
+	bool isHeavy()const override{...}
 };
 
-Comic c{/*...*/,/*...*/,40,/*...*/};
+Comic c{...,...,40,...};
 
 Comic *cp{&c};
 Book *bp{&c};
@@ -106,7 +106,7 @@ rb.isHeavy(); // Comic::isHeavy runs
 - costs more than static dispatch
 
 
-- collections of Books
+##### collections of `Book`s
 
 ```cpp
 Book *collection[20];
@@ -117,10 +117,9 @@ Book *collection[20];
 for(int i = 0;i<20;i++){
 	collection[i]->isHeavy();
 }
-
 ```
 
-- the `Book` array can accommodate different (multiple) types of Books under one abstraction
+- the `Book` array can accommodate different (multiple) types of `Book`s under one abstraction
 	- this is called **Polymorphism** (n.多态性) 
 
 ```cpp
@@ -131,17 +130,17 @@ ostream &operator<<(ostream &out, const class &c){
 ```
 - `ostream` is the superclass of `ostringstream`
 
-- The same function can be used to write to cout, or to a file as `ostringostream`
+- The same function can be used to write to `cout`, or to a file as `ostringostream`
 
 ### Destructor Revisited
 
-- `inheritance/example5`
+`inheritance/example5`
 
 ```cpp
 class X{
 	int *x;
 	public:
-	X(int n): X(new int[n]){}
+	X(int n): X{new int[n]} {}
 		
 	~X() {delete [] x;}
 	//Virtual ~X() {delete [] x;}
@@ -157,7 +156,7 @@ class Y:public X{
 ```
 
 - `~Y()` does not need to delete `X`
- - when a subclass object is destroyed, the superclass destructor is automatically called
+ - **when a subclass object is destroyed, the superclass destructor is automatically called**
 
 ```cpp
 X *myx = new Y(10,20);
@@ -193,14 +192,14 @@ class Student{
 class coop:public Student{
 	//...
 	public:
-	int fees() override{/*...*/}
+	int fees() override{...}
 };
 
 class regular:public Student{
 	//...
 	public:
-	int fees() override{/*...*/}
-};
+	int fees() override{...}
+};_i
 
 
 ```
@@ -235,4 +234,4 @@ class regular:public Student{
 - in UML
 	- Virtual/P.V. method - *italics*
 	- abstract class - *italics*
-	- static - __underline_
+	- static - __underline__
