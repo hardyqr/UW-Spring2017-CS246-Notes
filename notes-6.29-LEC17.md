@@ -17,7 +17,7 @@ class Stack{
 };
 ```
 
-- C++ Template class: class
+- C++ Template class: class //???
 	- parameterized on one or more types
 ```cpp
 template <typename T>
@@ -121,24 +121,22 @@ auto it = vecs.erase(vecs.begin()); // removes the first element
 // why return an iterator?
 // because the previous iterator is removed
 
-vecs.erase(vecs.begin()+3); // ???
+vecs.erase(vecs.begin()+3);
 
 
 vecs.erase(vecs.end() - 1);
 // end() is the next of the last element
 
-vecs[i]//...; // unchecked
+vecs[i] ...; // unchecked
 // program does not check that i is in range
 // which means it's the programmer's job
 
 vecs.at(i); // a checked method
 // it'll check if i is in range
 // throw exception if not in range
-
 ```
 
 ## C++ Exceptions
-
 
 - client code
 ```cpp
@@ -173,7 +171,7 @@ int main(){
 		vecs.at(10);
 		cout << "Done try" << endl;
 	} catch{
-		cout << "handled" << endl;
+		cout << "Handled" << endl;
 	}
 	cout << "Done Main" << endl;
 }

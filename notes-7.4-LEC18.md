@@ -8,7 +8,7 @@
 try{
 	//...
 } catch(SomeExn e){ // catches exceptions of type SomeExn
-	throw SomeOtherExn{/*...*/}
+	throw SomeOtherExn{...}
 	throw e;
 	throw;
 }
@@ -43,7 +43,7 @@ class BadInput{};
 try{
 	int n;
 	if(!(cin >> n))throw BadInput{};
-} catch(BadInput &){/*...*/}
+} catch(BadInput &){...}
 ```
 
 - we can catch exception by reference
