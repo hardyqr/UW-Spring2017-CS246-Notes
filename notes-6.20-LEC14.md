@@ -196,6 +196,7 @@ ostream &operator<<(ostream &out, const vec &other){ // why "other" has to be a 
 ### A class in UML
 
 |Vec|
+|---|
 |-x: Integer  -y: Integer|
 |+getx: Integer +gety: Integer|
 
