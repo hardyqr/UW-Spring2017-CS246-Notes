@@ -1,5 +1,5 @@
 # CS246
-# Lecture 14: Iterator Design Pattern, more encapsulation, maybe UML
+# Lecture 14: Iterator Design Pattern, more encapsulation, a little UML
 
 
 ### Last time
@@ -18,7 +18,7 @@ class List{
 
 ### Iterator Design Pattern
 
-- create a calss (Iterator) that will manage access to Nodes
+- create a calss (Iterator) that will manage access to `Node`s
 
 - acts as an abstraction of a ptr into the linked list
 
@@ -36,7 +36,7 @@ for(int *p = arr; p!=arr + array_size; ++p){
 	- `++` operator
 	- `!=` (==)
 
-begin and end method
+- begin and end method
 ```cpp
 class List{
 	struct Node;
@@ -46,6 +46,7 @@ class List{
 		Node *cur;
 		public:
 		explicit Iterator(Node *cur): cur{cur} {}
+		// explicit keyword: prevent implicit conversion for single parameter constructors
 		int &operator*() const{
 			return cur->data;
 		}
@@ -95,9 +96,9 @@ auto keyword: automatic type deduction
 	- range-based for loops
 ```cpp
 // pass by value
-//modifying a copy
+// modifying a copy
 for(auto n: lst){
-	cout << n endl;
+	cout << n << endl;
 }
 
 // pass by reference
@@ -108,7 +109,7 @@ for(auto &n: lst){
 ```
 
 - A class C can use a range-based for loop if
-	- it has methods begin and end that return iterator objects
+	- it has methods `begin` and `end` that return iterator objects
 	- the iterator class implements `*`, `++`, `!=`
 
 ### Encapsulation (contd.)
@@ -116,7 +117,7 @@ for(auto &n: lst){
 - Iterator constructor public
 `auto it = Iterator{nullptr}`
 
-- We'd like clients to use begin and end
+- We'd like clients to use `begin` and `end`
 	- let's make constructor for iterator private
 
 
@@ -124,17 +125,17 @@ for(auto &n: lst){
 class List{
 	//...
 	public:
-		class Iterator{
-			Node *cur;
-			explicit Iterator(Node *cur)//...
-			public:
-				//...
-				friend class List;
-		};
+	class Iterator{
+		Node *cur;
+		explicit Iterator(Node *cur)//...
+		public:
+		//...
+		friend class List;
+	};
 
-		Iterator begin(){
-			return Iterator{theList};
-		}
+	Iterator begin(){
+		return Iterator{theList};
+	}
 };
 
 ```
@@ -144,7 +145,7 @@ class List{
 
 - Previous advice: keep fields private
 
-If needed, provide accessors(getters) and mutators(setters)
+If needed, provide accessors (getters) and mutators (setters)
 
 ```cpp
 class Vec{
@@ -164,11 +165,11 @@ class Vec{
 
 ### Scenario
 
-- Vec fields are private 
+- `Vec` fields are private 
 
 - Suppose we do not want to make accessors
 
-- want to implement output operator (`opeartor<<`)
+- want to implement output operator (`operator<<`)
 	- recall we implement `operator<<` as a standalone function
 
 
@@ -180,7 +181,7 @@ Class Vec{
 	firend ostream &operator<<(operator &out , const Vec &other);
 };
 
-ostream &operator<<(ostream &out, const vec &other){
+ostream &operator<<(ostream &out, const vec &other){ // why "other" has to be a reference???
 	out << other.x << other.y << endl;
 }
 
@@ -195,8 +196,8 @@ ostream &operator<<(ostream &out, const vec &other){
 ### A class in UML
 
 |Vec|
-|-x: Integet  -y: Integer|<-optional
-|+getx: Integer +gety: Integer|<-optional
+|-x: Integer  -y: Integer|
+|+getx: Integer +gety: Integer|
 
 - `-` indicates private
 - `+` indicates public
