@@ -220,7 +220,7 @@ List::~List(){
 ```
 Typically, list traversal is O(n).
 
-`class List` has O(n<sup>2<\sup>) traversal, the i<sup>th<\sup> method is O(n) abd it must be called n-times to get all nodes.
+`class List` has O(n<sup>2</sup>) traversal, the i<sup>th</sup> method is O(n) abd it must be called n-times to get all nodes.
 
 Need to provide O(n) traversal without exposing `Node`s.
 
