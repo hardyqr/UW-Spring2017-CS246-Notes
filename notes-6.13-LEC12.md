@@ -2,10 +2,10 @@
 # Lecture 12: Rvalue References + short topics 
 
 
-example `classes.cc`/`rvalue.cc`/`node.cc`
+(example `classes.cc`/`rvalue.cc`/`node.cc`)
 
 ```cpp
-Node plusOne(Node n) {
+Node plusOne(Node n){
 	//...
 	return n;
 }
@@ -39,7 +39,7 @@ struct Node{
 
 ```
 
-- other is a rvalue ref. which means it's a temporary 
+- `other` is a rvalue ref. which means it's a temporary 
 	- it's about to be destroyed
 
 Note: Now 4 calls to copy constructor, 1 call to move constructor
@@ -64,7 +64,7 @@ Node &operator=(Node &&other) {
 
 - A program will always use the move version of copy / copy assignment if 
 	- they are available
-	- other(rhs) is a rvalue reference
+	- `other`(rhs) is a rvalue reference
 
 
 #### Rule of 5
@@ -80,7 +80,7 @@ Node &operator=(Node &&other) {
 ### Copy / Move elision 
 (elison n.元音省略)
 
-see `nodemove.cc`
+(see `/8-elison/vec.cc`)
 ```cpp
 Node plusOne(Node n){
 	//...
@@ -125,14 +125,14 @@ struct Vec{
 
 // we now can do v*5, v1+v2
 
-Vec  operator*(int k, const Vec &v){
+Vec operator*(int k, const Vec &v){
 	return v*k;
 }
 // now we can even do 5.operator*(v)
 ```
 
 
-What about I/O operators?
+What about I/O operators? <br>
 `cout << v;` `cin >> v;`
 
 ```cpp
@@ -170,7 +170,7 @@ Vec *vecs1 = new Vec[3]; // heap allocated array of Vec objects
 // but either will compile
 ```
 
-- Won't compile because we are unable to default construct Vec objects
+- Won't compile because we are unable to default construct `Vec` objects
 	- no default constructor 
 
 - Fix to this
@@ -179,7 +179,7 @@ Vec *vecs1 = new Vec[3]; // heap allocated array of Vec objects
 	- work for both stack / heap allocation: create array of pointers to objects 
 		```cpp
 		Vec *vecs[3]; // stack allocated array of Vec *
-		Vec **vecs1 = new Vec*[3];` `vecs1[0] = new Vec{1,2};
+		Vec **vecs1 = new Vec*[3];` `vecs1[0] = new Vec{1,2}; //???
 		
 		// how do we free all the memories?
 		for(int i = 0; i < vecsize; i++ )
@@ -218,7 +218,7 @@ struct Node{
 ```cpp
 #include "node.h"
 
-Node::Node(int data, Node *next) :
+Node::Node(int data, Node *next):
 	data{data}, next{next} {}
 	int Node::getData(){retyrn data;}
 // Node:: is the only difference
@@ -253,7 +253,7 @@ cout << billy.grade() << endl; // compiles
 
 ```
 
-- billy is const
-	- grade does not promise it will not change fields
+- `billy` is const
+	- the first `grade` does not promise it will not change fields
 
 If you declare a method const, you are promising not to change the fields of the object on which the methods was called.

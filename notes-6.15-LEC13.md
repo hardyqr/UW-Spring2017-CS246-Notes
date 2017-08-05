@@ -4,7 +4,7 @@
 ## Const Methods
 
 ```cpp
-struct  Student{
+struct Student{
 	int assns, mt, final;
 	float grade() {
 		return assns*0.4+mt*0.2+final*0.4;
@@ -17,7 +17,7 @@ struct  Student{
 
 ```cpp
 
-struct  Student{
+struct Student{
 	int assns, mt, final;
 	float grade() const{
 		return assns*0.4+mt*0.2+final*0.4;
@@ -46,9 +46,9 @@ struct Student{
 - We can make a field mutable
 	- const methdos can modify mutable fields
 
-static - fields and member functions
+`static` - can be applied on fields and member functions
 
-A static field is associated with a class and not the object of the class
+A `static` field is associated with a class and not the object of the class
 
 ```cpp
 struct Student{
@@ -66,7 +66,7 @@ C++ Rule: static fields must be defined in an external file.
 
 - A **static member function** is associated with the class 
 	- does not need an object to call this function
-	- since a static member function can be called without any object, the static member function does not have the "this" parameter
+	- since a static member function can be called without any object, the static member function does not have the `this` parameter
 	- static member functions can only access static fields and member functions.
 
 ```cpp
