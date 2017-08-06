@@ -164,7 +164,7 @@ class Text: public Book{
 
 ```
 
-![vptr&vtable](vptr2vtable)
+![vptr&vtable](vptr2vtable.jpeg)
 
 - `p->isHeavy()`
 	- use vptr to get to vtable
