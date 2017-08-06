@@ -162,7 +162,8 @@ for(auto p : m) {
 
 ### Visitor Design Pattern
 
-- Used to implement double dispatch
+- Used to implement double dispatch 
+	- we can consider double dispatch as overloading + overriding
 - Dynamic Dispatch, use the `virtual` keyword
 
 - sometimes the right method to call depends on the runtime type of two objects
