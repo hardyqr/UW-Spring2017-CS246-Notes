@@ -105,7 +105,7 @@ try{
 
 ![](DecoratorUML.png)
 
-- Decorator is a component and has a component
+- Decorator is a component and **has** a component
 
 - A window with a scroll bar & a menu has a window with a menu which has a menu
 - `Window *w = new Scroll(new Menu(new PlainWindow))`

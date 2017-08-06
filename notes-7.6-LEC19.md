@@ -2,40 +2,40 @@
 # Lecture 19: Design Patterns, the Big 5 (again!)
 
 - Todo list for Iterator: 
-	- operator *
-	- operator ++
-	- operator !=
+	- `operator*`
+	- `operator++`
+	- `operator!=`
 
 - create an abstract iterator class that defines the interface supported by iterators
 
 ```cpp
 class AbstractIterator{
 	public:
-		virtual int &operator*() const = 0;
-		virtual AbstractIterator &operator++() = 0;
-		bool operator!=(const AbstractIterator other) const{
-			return !(*this == other);
-		}
-		virtual bool operator==(const AbstractIterator &other) const = 0;
-		virtual ~AbstractIterator();
+	virtual int &operator*() const = 0;
+	virtual AbstractIterator &operator++() = 0;
+	bool operator!=(const AbstractIterator other) const{
+		return !(*this == other);
+	}
+	virtual bool operator==(const AbstractIterator &other) const = 0;
+	virtual ~AbstractIterator();
 };
 
 class List{
 	struct Node;
-	...
+	//...
 	public:
-		class Iterator::public AbstractIterator{
-			...
-		};
-		...
+	class Iterator::public AbstractIterator{
+		//...
+	};
+	//...
 };
 
 class set{
 	...
 	public:
-		class Iterator::public AbstractIterator{
-			...
-		};
+	class Iterator::public AbstractIterator{
+		//...
+	};
 };
 
 template<typename Fn>
@@ -52,7 +52,7 @@ void foreach(AbstractIterator &lst; AbstarctIterator &end; Fn f){
 class Book{
 	...
 	public:
-		// has implemented Big 5
+	// has implemented Big 5
 };
 
 Text b{...,...,...,...};
@@ -137,24 +137,24 @@ Here, the compiler looks at the declared type of `pb1`, so `Book::operator=` is 
 
 ```cpp
 class Book{
-	...
+	//...
 	public:
-		virtual Book &operator=(const Book &other){
-			...
-		}
+	virtual Book &operator=(const Book &other){
+		//...
+	}
 };
 
 class Text::Book{
-	...
+	//...
 	public:
-		Book &operator=(const Text &other) override{
-			...
-		}
+	Book &operator=(const Text &other) override{
+		//...
+	}
 };
 // this will not compiler because the parameter name doesn't match
 
 Text &Text::operator=(const Book &other) override{
-	...
+	//...
 }
 // this is a a valid override (even though return types are different)
 // this causing mixed assignment problem
