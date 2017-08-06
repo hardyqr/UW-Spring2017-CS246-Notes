@@ -164,7 +164,7 @@ class Text: public Book{
 
 ```
 
-![vptr&vtable](vptr2vtable.jpeg)
+![vptr&vtable](https://github.com/hardyqr/UW-Spring2017-CS246-Notes/blob/master/vptr2vtable.jpg)
 
 - `p->isHeavy()`
 	- use vptr to get to vtable
