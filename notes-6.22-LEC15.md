@@ -125,7 +125,7 @@ Rule: since `title`, `author`, `numPages` is private in `Book`, it is not access
 class Text:public Book{
 	string topic;
 	public: 	
-	Text:(/*...*/):title{/*...*/} /*...*/ {}
+	Text:(...):title{...} ... {}
 };
 // won't compile
 ```

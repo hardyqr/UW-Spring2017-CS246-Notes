@@ -33,15 +33,15 @@ while(p->notDead()){
 ```cpp
 class Level{
 	public:
-		virtual Enemy *createEnemy() = 0;
+	virtual Enemy *createEnemy() = 0;
 };
 class Nomair: public Level{
 	public:
-		Enemy *createEnemy() override {//more turtles}
+	Enemy *createEnemy() override {//more turtles}
 };
 class Castle: public Level{
 	public:
-		Enemy *createEnemy() override {//more bullets}
+	Enemy *createEnemy() override {//more bullets}
 };
 ```
 
@@ -163,7 +163,7 @@ for(auto p : m) {
 ### Visitor Design Pattern
 
 - Used to implement double dispatch
-- Dynamic Dispatch, use the virtual keyword
+- Dynamic Dispatch, use the `virtual` keyword
 
 - sometimes the right method to call depends on the runtime type of two objects
 
@@ -174,7 +174,7 @@ for(auto p : m) {
 	- rock
 
 - four combinations
-	- the strike method to call depends on both the enemy&weapon object
+	- the `strike` method to call depends on both the `Enemy` & `Weapon` object
 
 ```cpp
 class Enemy{
@@ -201,36 +201,34 @@ e->strike(*w);
 ```cpp
 class Enemy{
 	public:
-		virtual void strike(weapon &) = 0;
+	virtual void strike(weapon &) = 0;
 };
 
 
 class Turtle: public Enemy{
 	public:
-		void strike(Weapon &w) override {
-			w.useOn(*this);
-		}
+	void strike(Weapon &w) override {
+		w.useOn(*this);
+	}
 };
 
 class Bullet: public Enemy{
 	public:
-		void strike(Weapon &w) override {
-			w.useOn(*this);
-		}
+	void strike(Weapon &w) override {
+		w.useOn(*this);
+	}
 };
 
 class Weapon{
 	public:
-		virtual void useOn(Turtle &) = 0;
-		virtual void useOn(Bullet &) = 0;
+	virtual void useOn(Turtle &) = 0;
+	virtual void useOn(Bullet &) = 0;
 };
 
 class Strike: public Weapon{
 	public:
-		void useOn(Turtle &t) override{...}
-		void useOn(Bullet &b) override{...}
+	void useOn(Turtle &t) override{...}
+	void useOn(Bullet &b) override{...}
 };
-
-
 ```
 
