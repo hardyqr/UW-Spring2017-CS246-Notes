@@ -58,9 +58,9 @@ class Book{
 Text b{...,...,...,...};
 Text c{b}; // copy constructor for Text
 ```
-- calling the default constructor for Text
-	- First calls Book's copt construtor
-	- Then copies Text's field
+- calling the default constructor for `Text`
+	- First calls `Book`'s copy construtor
+	- Then copies `Text`'s field
 
 ```cpp
 Text::Text(const Text &other):
@@ -71,8 +71,8 @@ Text::Text(const Text &other):
 // using superclass's copy constructor
 ```
 - Assignment
-	- First call Book's operator
-	- then assign Text's field
+	- First call `Book`'s operator
+	- then assign `Text`'s field
 
 ```cpp
 Text &Text::operator=(const Text &other){
