@@ -8,14 +8,15 @@ int *p =  (int *)&n;
 ```
 
 #### `static_cast`
-	- "sensible" casts
-	- behavior is well defined
+
+- "sensible" casts
+- behavior is well defined
 
 ```cpp
 void f(int x);
 void f(double y);
 
-double a = ...;
+double a = ...
 f(a); // calls f(double)
 
 f(static_cast<int>(a));
@@ -36,7 +37,7 @@ tp->getTopic(); // compiles
 
 #### `reinterpret_cast`
 
-- essentially c-style casting
+- essentially C-style casting
 - rely on knowledge of internal workings of the compiler
 - has "weired" behavior
 
@@ -69,7 +70,7 @@ foo(const_cast<int *>(q)) //compiles
 ```
 -------
 
-- used to cast `shared_ptr`s to `shared_ptr`s
+- used to cast `shared_ptr`s to `shared_ptr`s //???
 
 #### RTTI: Runtime type Information
 ```cpp
@@ -107,15 +108,15 @@ Previous solution: Make base class abstract with a protected assignment operator
 - make `operator=` virtual
 
 ```cpp
-Comic &Comic::operator=(const Book &other) overrride{
+Comic &Comic::operator=(const Book &other) override{
 	Comic &cother = dynamic_cast<const &>(other);
 	Book::operator=(cother);
-	hero = cother.here;
+	hero = cother.hero;
 	return *this;
 }
 ```
 
-- if RHS is not a `Comic` ()in other words it is a mixed assignment), `operator=` will throw a `bad_cast` exception
+- if RHS is not a `Comic` (in other words it is a mixed assignment), `operator=` will throw a `bad_cast` exception
 
 ```cpp
 class Book{

@@ -1,7 +1,7 @@
 # CS246
 # Lecture 23: Exception Safety
 
-- 3 levels of exception safety
+#### 3 levels of exception safety
 
 - basic guarantee
 	- if an exception occurs the program will be in a valid but unspecified state
@@ -9,11 +9,11 @@
 	- no dangling pointers
 	- class invariants still hold
 
-- stoing guarantee
+- strong guarantee
 	- if an exception is raised while executing function `f`, the state of the program will be as if `f` was never called
 
 - no throw guarantee
-	- the function nver throws an exception and always succeeds in achieving its goal
+	- the function never throws an exception and always succeeds in achieving its goal
 
 ```cpp
 class A{};
@@ -33,9 +33,9 @@ class C{
 	}
 };
 ```
-- if `method1` throws an exception, then it's as if `method1` was never called (strong guarantee) -> its as if `f()` was never called (strong giarantee)
+- if `method1` throws an exception, then it's as if `method1` was never called (strong guarantee) -> its as if `f()` was never called (strong guarantee)
 
-- if `method2` throws an exception, then it's as if `method2` was never called (strong guarantee), but we've lost the strong guarantee for `f()` since method1 might have changed the state
+- if `method2` throws an exception, then it's as if `method2` was never called (strong guarantee), but we've lost the strong guarantee for `f()` since `method1` might have changed the state
 
 - Let's assume that `method1` and `method2` do not have what we call Non-local side effects.
 
@@ -66,7 +66,7 @@ void C::f(){
 - we know pointer assignment never throws an exception since it's just a copy of address
 
 - we wanna copy and swap, but we only do that to pointers
-	- `pImpl`
+	- pImpl Idiom
 	- smart ptrs
 
 
@@ -84,7 +84,7 @@ class C{
 	void f(){
 		unique_ptr<CInput> temp{
 			new CInput{*pImpl}}; // *pImpl is an object
-		// auto temp - make_unique<CImpl>(*pImpl);
+		// auto temp = make_unique<CImpl>(*pImpl);
 		temp->a.method1();
 		temp->b.method2();
 		std::swap(pImpl, temp);
