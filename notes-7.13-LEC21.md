@@ -1,29 +1,28 @@
 # CS246
-# Lecture 21: Visitor Design Pattern (contd), Compilation Dependencies
+# Lecture 21: Visitor Design Pattern (contd.), Compilation Dependencies
+
+
+
+//??? what's the context?
 
 ```cpp
-
-class Catalogue: public BookVisitors{
+class Catalogue: public BookVisitor{
 	map<string,int> myCatalog;
 	public:
-		void visit(Book&b) override {
-			myCatalog[b.getAuthor()] = myCatalog[bogetAuthor()] + 1;
-			// ++ mycatalog[b.getAuthor()];
-		}
-		
-		void visit(Text &t) override {
-			++ myCatalog[t.getTopic()];
-		}
+	void visit(Book &b) override {
+		myCatalog[b.getAuthor()] = myCatalog[b.getAuthor()] + 1;
+		// ++ mycatalog[b.getAuthor()];
+	}
+	
+	void visit(Text &t) override {
+		++ myCatalog[t.getTopic()];
+	}
 
-		void visit(comic &c) override {
-			++ myCatalog[c.getHero()];
-		}
+	void visit(comic &c) override {
+		++ myCatalog[c.getHero()];
+	}
 };
-
 ```
-
-
-
 
 ## Compilation Dependencies
 
@@ -32,7 +31,7 @@ class Catalogue: public BookVisitors{
 - there is a compilation dependency between `Book.h` and `BookVisitor.h`
 
 - an `include` creates a compilation dependency
-	- if the `included` file changes, the file which has a `include` must be recompiled
+	- if the included file changes, the file which has a `include` must be recompiled
 
 - unnecessary `include` slows down compile time
 
@@ -107,13 +106,12 @@ class XWindow{
 	GC gc;
 	...
 	public:
-		...
+	...
 };
-
 ```
 - Note that a file includes `window.h` would need to recompile even if the change in window.h is to a **private** member
 
-- pImpl Idiom: pointer to implamentation
+- **pImpl Idiom**: pointer to implamentation
 - take the private members into a seperate implementation class 
 - replace there with a pointer to the implementation class
 
@@ -133,12 +131,12 @@ class XWindowImpl;
 class XWindow{
 	XWindowImpl *pImpl;
 	public:
-		...
+	...
 };
 ```
 
 - `window.cc`
 
 ```cpp
-
-
+...
+```

@@ -23,12 +23,11 @@ void f(){
 
 - For `f()`, `p` has leaked, `m` is reclaimed
 
-It makes sense for the program to not automatically delete pointers	
+- It makes sense for the program to not automatically delete pointers
 	- pointers could be  a stack address
 	- someone else might be owners
 
 ```cpp
-
 void f(){
 	MyClass *p = new MyClass;
 	MyClass m;
@@ -47,14 +46,12 @@ void f(){
 
 - C++ does not have this
 
-
-
 - C++ stack unwinding guarantee is enough
 	- maximize the use of stack allocated objects
 
-- RAII: Resource Acquisition Is Initialization (RAII Idiom)
+- **RAII**: Resource Acquisition Is Initialization (**RAII Idiom**)
 
-- Every resource should be wrapped within a stack allocated object whose job is to releaase the resource. 
+- Every resource should be wrapped within a stack allocated object whose job is to release the resource. 
 
 - Reading from a file
 
@@ -85,7 +82,7 @@ void f(){
 
 - Dtor for `unique_ptr` always deletes the pointer field
 
-- a stack allocated	`unique_ptr` can be treated as a ptr as it overloads `operator *` & `operator->`
+- a stack allocated	`unique_ptr` can be treated as a ptr as it overloads `operator*` & `operator->`
 
 ```cpp
 void f(){
@@ -102,14 +99,14 @@ void f(){
 
 - `c++/13-unique_ptr`
 
-- the `bp` is stack allocated, but `MyClass` it points to is heao allocated
+- the `bp` is stack allocated, but `MyClass` it points to is heap allocated
 
 
 #### Copying vs Moving unique ptrs
 
 ```cpp
 class c{...};
-unique_ptr<c> p{new c;};
+unique_ptr<c> p{new c};
 unique_ptr<c> q = p; //copy ctor
 // won't compile
 // copy ctor of unique_ptr is disabled
@@ -125,7 +122,7 @@ class unique_ptr{
 	T *ptr; // points to heap allocated memory
 	public:
 	unique_ptr(T *p) : ptr{p} {}
-	~unique_ptr(){delete prt;}
+	~unique_ptr(){delete ptr;}
 	unique_ptr(const unique_ptr<T> &other) = delete;
 	unique_ptr<T> &operator=(const unique_ptr<T> &other) = delete;
 	unique_ptr(unique_ptr<T> &&other):
@@ -140,17 +137,16 @@ class unique_ptr{
 	T *operator->(){return ptr;}
 };
 ```
-
+//??? wtf are those
 - `std::shared_ptr`
 ```cpp
 void g(){
-	auto p = make.shared<MyClass>();
+	auto p = make_shared<MyClass>();
 	if(...){
 		auto q = p; // copy ctor call
 		...
 	}
 }
-
 ```
 
 - when `g()` goes out of scope, dtor runs 

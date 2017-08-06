@@ -9,10 +9,10 @@
 	- no dangling pointers
 	- class invariants still hold
 
-- string guarantee
+- stoing guarantee
 	- if an exception is raised while executing function `f`, the state of the program will be as if `f` was never called
 
-- no throw guarantt
+- no throw guarantee
 	- the function nver throws an exception and always succeeds in achieving its goal
 
 ```cpp
@@ -43,7 +43,7 @@ class C{
 - debug with local side effects
 
 
-- Idea: let's call `method1` and `method2` on copies of `a` and `b`. If sth fails, we'll still have strong guaranteeas as we haven't changed the original `a` and `b`
+- Idea: let's call `method1` and `method2` on copies of `a` and `b`. If sth fails, we'll still have strong guarantees as we haven't changed the original `a` and `b`
 
 - we do copy and swap
 

@@ -136,6 +136,9 @@ vecs.at(i); // a checked method
 // throw exception if not in range
 ```
 
+- notice that we'll always need an anchor the position of the beginning/end of the iterator list
+- like we need `vecs.begin()`/`vecs.end()` in `erase`
+
 ## C++ Exceptions
 
 - client code

@@ -162,6 +162,53 @@ class Strike: public Weapon{
 
 ### pImpl Idiom
 
+- **pImpl** means pointer to implementation
+
+- `window.h`
+
+```cpp
+#include <X11/Xlib.h>
+
+class XWindow{
+	Display *d;
+	Window w;
+	GC gc;
+	...
+	public:
+	...
+};
+```
+- notice that a file includes `window.h` would need to be recompiled even if a private member in `window.h` has changed
+
+- to reduce compilation dependencies
+
+- we take the private members into seperate implementation class
+
+- `xwindowimpl.h`
+```cpp
+struct XWindowImpl{
+	Display *d;
+	Window w;
+	GC gc;
+	...
+};
+```
+
+- `window.h`
+```cpp
+class XWindowImpl;
+class XWindow{
+	XWindowImpl *pImpl;
+	public:
+	...
+};
+```
+- `window.cc`
+```cpp
+...
+```
+
+
 ### Generalize the pImpl Idiom: Bridge Design Pattern
 
 ### Exception Safety
