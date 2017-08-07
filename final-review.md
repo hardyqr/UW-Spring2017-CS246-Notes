@@ -80,6 +80,39 @@
 
 ### Shell Scripts
 
+- some questions
+
+1. display those lines from the first 10 lines of `file.txt` that constains the username of the currently logged in user.
+
+```bash
+head -10 file.txt | egrep "$(whoami)"
+```
+- notice that `()` is a must
+
+2. create a file named `context.txt` that containing the filenames of all files including the hidden files in the user's in the home directory that contains "ab" in the filename.
+
+```bash
+ls -a ~ | egrep "ab" > content.txt
+```
+
+3. sort the contents of `input.txt` and append the results to `log.txt`.
+```bash
+sort inout.txt >> log.txt
+```
+
+4. regular expression: `(cs)*246`, will "CS246" be matched?
+
+Yes. There'd be no `(cs)*`. Just `246`.
+
+5. regular expression: `^(..)*.+$` will match all non-empty lines that contain an odd length of characters?
+
+No. It can match both odd and even lines.
+
+6. regular expression `^a*$` will begin with the character "a", followed by anything at all?
+
+No. It would only followed by "a"/"aa"/"aa...".
+
+
 ### Command Line Argument to a script - `$#`, `$0`,`$1`,`$?`
 
 - `$0` - name of the shell script
@@ -106,6 +139,7 @@ if other, abnormal
 - arithmetic
 	- `x = $((x+1))`
 
+
 ### `if` statements
 
 ### `while` loop
@@ -125,20 +159,20 @@ if other, abnormal
 ### `cin.fail()`, `cin,eof()`
 	see notes
 
-- implicit conversion of a stream to boolean
+### implicit conversion of a stream to boolean
 
 - `<<` and `>>` are  binary operators: must produce an expression
 
 - `<<` and `>>` cascading
 
-## `cin.ignore()`,`cin.clear()`
+### `cin.ignore()`,`cin.clear()`
 
-- `std::string`
+### `std::string`
 
-## semantics of reading from `cin`
+### semantics of reading from `cin`
 read until a whitespace
 
-## I/O Manipulators: e.g. hex, dec, showpoint, setprecision, boolalpha, header
+### I/O Manipulators: e.g. hex, dec, showpoint, setprecision, boolalpha, header
 
 - hex - `cout << hex;`
 - go back to decimal - `cout <<dec;`
@@ -147,13 +181,13 @@ read until a whitespace
 
 - stream abstraction for strings: `istringstream`, `ostringstream`
 
-## converting string to an integer
+### converting string to an integer
 
 - `stoi`
 
 - strings in C++
 
-## string operations: concat, length, comparisons
+### string operations: concat, length, comparisons
 
 - `s1+s2`
 
@@ -165,87 +199,200 @@ read until a whitespace
 
 - default arguments
 
-- funtion overloading
+### funtion overloading
 
-- Lvalue references
+- if # / type of parameter different, can share the same name
+
+### overriding
+
+- inherited class rewriting the virtual method of the base class
+
+
+### reference, general
+- cannot create ptr to a reference (ref. doesn't have its own address) 
+	- `int& *p` is not allowed
+
+- cannot have reference ot a reference 
+	- `int &&a` is not allowed
+- but can have reference to a ptr
+
+### Lvalue references
+
+
+
+### pass by reference
+
+### pass by value **vs** passing a pointer **vs** pass by reference : pros and cons of each
+
+- pass by value
+	- do a copy, expensive
+
+- pass by ptr
+	- can be Null
 
 - pass by reference
+	- like pass in an alias
+	- cannot be Null
 
-- pass by value **vs** passing a pointer **vs** pass by reference : pros and cons of each
+### dynamic memory allocation: `new` and `delete`
 
-## dynamic memory allocation: `new` and `delete`
+are all `new` memory heap allocated? yes.
+```cpp
+Node *np = new Node;
+...
+delete np;
 
-are all `new` memory heap allocated?
 
-- operator overloading ,examples: `Vec`, `Grade`
+int *arr = new int [n];
+...
+delete [] arr;
+```
 
-- the C and C++ **preprocessor** (`#include`, `#define`, using `#define` for conditional compilation)
+- problems
+	- memory leak: forget to free previous storage
+	- dangling ptr: result of dereference is undefined
 
-- seperate compilation
+### operator overloading ,examples: `Vec`, `Grade`
 
-- C++ classes
+### the C and C++ **preprocessor** (`#include`, `#define`, using `#define` for conditional compilation)
 
-- initializing objects
+- **preprocessor** is a text editor that modifies the program text before compilation
 
-- constructors
+- `define VAR VALUE`
 
-- default constructor
+- conditional compilation
+```cpp
+#define BBOS 1
+#define IOS 2
+#define OS BBOS
+#if OS == BBOS
+	long long int key;
+#elif OS ==IOS
+	short int key;
+#endif
+```
 
-- initialize consy and reference fields
+- check `define`s
+```cpp
+#ifndef MYDEF_H
+#define MYDEF_H
+...
+#endif
+```
+- exclude code
+```cpp
+if 0
+...
+#endif
+```
 
-- member initialization list (MIL)
+- `DEBUG`
+```cpp
+#if DEBUG
+...
+#endif
+```
+`g++ -DDEBUG file.cc`
 
-## copy constructor
+- define symbols via compiler args
+```cpp
+int main(){
+	cout << X << endl;
+}
+```
+`g++ -DX=1 file.cc`
 
-- a deep copy
+
+### seperate compilation
+
+- preprocessor -> compiler (compiles files seperately) -> linker (put object files together into exec)
+
+`g++ -c vector.cc` - only compiles, get `.o`,does not link
+
+`g++ vector.o main.o -o program` - links all `.o` files into exec
+
+### makefile
+
+
+
+### C++ classes
+
+### initializing objects
+
+### constructors
+
+### default constructor
+
+### initialize const and reference fields
+
+### member initialization list (MIL)
+
+### copy constructor
+
+- a deep copy (allocate new memory)
 
 - a constructor, do not return anything
 
 
-## explicit keyword ???
+### explicit keyword ???
 
-## deconstructor
+### deconstructor
 
-## copy assignment operator (`operator=`)
-
-
-- Rvalue references
-
-- move constructor
-
-- move assginment operator
-
-- superficial knowledge of copy / move elision (elision n.元音省略)
-
-## rule of 5
+### copy assignment operator (`operator=`)
 
 
-- member functions **vs** standalone functions
+### Rvalue references
 
-## array of abjects
+### move constructor
+
+### move assginment operator
+
+### superficial knowledge of copy / move elision (elision n.元音省略)
+
+### rule of 5
+- if create one of the five, create all of the five
+	-
+	-
+	-
+	-
+	-
+
+### member functions **vs** standalone functions
+
+### array of abjects
 - `Target **targets = new Target[10]; `
 
-- seprate compilation of classes (`::` the scope resolution opeartor)
+### seprate compilation of classes (`::` the scope resolution opeartor)
 
-- const methods
+- `AAA::BBB` 
+	- scope resolution operator
+	- means `BBB` is in the context of `AAA`
 
-- mutable keywords
+### const methods
 
-## static keyword in C++
+### mutable keywords
+
+### static keyword in C++
 > When we declare a member of a class as static it means no matter how many objects of the class are created, there is only one copy of the static member.
 
 - invariants
 
-## encapsulation: class keyword
+### encapsulation: `class` keyword
 - `class` - fields default private
 - `struct` - fields default public
 
 - invariant example: `List` and `Node` class
 
+### Coupling & Cohesion
+- coupling: degree to which modules depend on each other
+- cohesion: how closely related elements of a module are to each other
+
+- goal: low coupling (reusability, extensibility) and high cohesion (easy to use and understand)
 
 
 
-## adter midterm
+
+## after midterm
 
 
 ### Iterator Class for `List`

@@ -63,7 +63,7 @@
 - used to redirect the output of a command / program to a file (default is the screen)
 
 - `command arguments > output.txt`
-	- if it's a `>>` rather than '>', it means to append rather then overwrite
+	- if it's a `>>` rather than `>`, it means to append rather then overwrite
 
 ### Input Redirection
 
