@@ -62,7 +62,7 @@
 ## `cin.fail()`, `cin,eof()`
 	see notes
 
-- implicit conversion of a stream to bool
+- implicit conversion of a stream to boolean
 
 - `<<` and `>>` are  binary operators: must produce an expression
 
@@ -110,7 +110,7 @@ read until a whitespace
 
 - pass by value **vs** passing a pointer **vs** pass by reference : pros and cons of each
 
-## dynamic memory allocation: `new` and delete`
+## dynamic memory allocation: `new` and `delete`
 
 are all `new` memory heap allocated?
 
@@ -335,7 +335,7 @@ Data &operator=(Data &&other){ //&& means other is about to be deleted
 }
 ```
 
-### version 1.2, use `swap` the smart way
+#### version 1.2, use `swap` the smart way
 ```cpp
 Data &operator=(Data &&other){
 	std::swap(*this, other);

@@ -54,6 +54,7 @@ Turtle *t = reinterpret_cast(Turtle *)&s;
 t->draw();
 ```
 - this is completely compiler-dependent
+- can only apply to ptrs & references
 
 #### `const_cast`
 

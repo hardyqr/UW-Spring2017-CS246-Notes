@@ -215,18 +215,41 @@ class XWindow{
 
 ### RAII
 
+- Resource Aquisition Is Initialization (RAII Idiom)
+
 ### `unique_ptr`
 
 ### `shared_ptr`
 
 ### Three levels of exception safety
 
+- basic guarantee
+
+- strong guarantee
+
+- no throw guarantee
+
+
 ### Casting: 4 kinds of casts
 
-### Solution to mixed/partial assignment problem with virtual operator=
+- `static_cast`
+
+- `reinterpret_cast`
+
+- `const_cast`
+
+- `dynamic_cast`
+
+
+### Solution to mixed/partial assignment problem with virtual `operator=`
 
 ### VTable and Vptr
+// what do we have to know about these concepts???
 
 # Other Problems
 
-- what's the difference between "own" and "has" ?
+### what's the difference between "owns" and "has" ?
+
+- owns
+	- responsible for deleting the object it owns
+	- the owned object goes away when it goes away
