@@ -1,5 +1,253 @@
 # Covered Topics
 
+## before midterm
+
+
+### Shell
+
+### Linux File System
+
+### Linux Commands Handout e.g. `cd`, `pwd`, `ls`, `echo`, `rm`
+
+### Globbing patterns (glob n.通配符)
+
+- globbing matching
+
+- `*` - 0 or more chars
+
+- `?` - single character
+
+
+### `cat`
+
+### input/output redirection
+
+### pipes `|`
+
+### `egrep`
+
+- `?` - zero or one proceeding character
+
+- `*` - zero or more proceeding character
+
+- `+` - one or more proceeding character
+
+- `.` - any character
+
+- `^` - beginning of the line
+
+- `$` - end of the line
+
+- `[...]` or (...|...|...) - any one of the given expressions
+
+- `[^...]` - any one of the characters not listed
+
+
+- `egrep "."`  - any char.
+
+- `egrep ".*"` - zero or more any char。
+
+- `egrep ".+"` - one or more any char.
+
+- `egrep ".?"` - zero or one any char
+
+- `egrep "^.+$"` - match strictly from begin to end: one or more char.
+
+- `egrep "[^abc]"` - all characters except `a`/`b`/`c`
+
+### file permissions (`chmod`)
+
+
+- permission
+	- `r` - read
+	- `w` - write
+	- `x` - execute 
+- class of user
+	- `u` - user
+	- `g` - group
+	- `o` - other
+	- `a` - all
+- operators
+	- `+` - add permission
+	- `-` - substract permission
+	- `=` - set permission
+
+- `chmod u+x file.sh` before run
+
+### Shell variables (`PATH`)
+
+- global variable
+
+### Shell Scripts
+
+### Command Line Argument to a script - `$#`, `$0`,`$1`,`$?`
+
+- `$0` - name of the shell script
+- `$1` - first argument in the command line
+- `$#` - number of arguments
+
+- `test.sh`
+```bash
+!#/bin/bash
+echo $#
+```
+if run `test.sh`, ouput is `0`
+if run `test.sh 0`, ouput is `1`
+
+- `$?` - exit status of the most recently executed program
+
+if `0`, normal
+if other, abnormal
+
+### `#`, `?`, `/dev/null`, `0`
+
+### script functions
+
+- arithmetic
+	- `x = $((x+1))`
+
+### `if` statements
+
+### `while` loop
+
+### `for` loop
+
+### C++: Hello World
+
+
+### compiling / executing C++ programs
+
+
+### Stream Objects (`cin`,`cout`,`cerr`)
+
+### I/O Operators (`<<`,`>>`)
+
+### `cin.fail()`, `cin,eof()`
+	see notes
+
+- implicit conversion of a stream to boolean
+
+- `<<` and `>>` are  binary operators: must produce an expression
+
+- `<<` and `>>` cascading
+
+## `cin.ignore()`,`cin.clear()`
+
+- `std::string`
+
+## semantics of reading from `cin`
+read until a whitespace
+
+## I/O Manipulators: e.g. hex, dec, showpoint, setprecision, boolalpha, header
+
+- hex - `cout << hex;`
+- go back to decimal - `cout <<dec;`
+
+- stream abstraction for files: `ifstream`, `ofstream`
+
+- stream abstraction for strings: `istringstream`, `ostringstream`
+
+## converting string to an integer
+
+- `stoi`
+
+- strings in C++
+
+## string operations: concat, length, comparisons
+
+- `s1+s2`
+
+- `s1.length()`
+
+- `strcmp(s1,s2)`
+	- returns `0` if succeed
+
+
+- default arguments
+
+- funtion overloading
+
+- Lvalue references
+
+- pass by reference
+
+- pass by value **vs** passing a pointer **vs** pass by reference : pros and cons of each
+
+## dynamic memory allocation: `new` and `delete`
+
+are all `new` memory heap allocated?
+
+- operator overloading ,examples: `Vec`, `Grade`
+
+- the C and C++ **preprocessor** (`#include`, `#define`, using `#define` for conditional compilation)
+
+- seperate compilation
+
+- C++ classes
+
+- initializing objects
+
+- constructors
+
+- default constructor
+
+- initialize consy and reference fields
+
+- member initialization list (MIL)
+
+## copy constructor
+
+- a deep copy
+
+- a constructor, do not return anything
+
+
+## explicit keyword ???
+
+## deconstructor
+
+## copy assignment operator (`operator=`)
+
+
+- Rvalue references
+
+- move constructor
+
+- move assginment operator
+
+- superficial knowledge of copy / move elision (elision n.元音省略)
+
+## rule of 5
+
+
+- member functions **vs** standalone functions
+
+## array of abjects
+- `Target **targets = new Target[10]; `
+
+- seprate compilation of classes (`::` the scope resolution opeartor)
+
+- const methods
+
+- mutable keywords
+
+## static keyword in C++
+> When we declare a member of a class as static it means no matter how many objects of the class are created, there is only one copy of the static member.
+
+- invariants
+
+## encapsulation: class keyword
+- `class` - fields default private
+- `struct` - fields default public
+
+- invariant example: `List` and `Node` class
+
+
+
+
+## adter midterm
+
+
 ### Iterator Class for `List`
 
 ### `auto` keyword
