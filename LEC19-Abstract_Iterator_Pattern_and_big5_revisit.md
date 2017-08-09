@@ -1,6 +1,9 @@
 # CS246
 # Lecture 19: Design Patterns, the Big 5 (again!)
 
+
+## Abstract Iterator Pattern
+
 - Todo list for Iterator: 
 	- `operator*`
 	- `operator++`
@@ -22,31 +25,31 @@ class AbstractIterator{
 
 class List{
 	struct Node;
-	//...
+	...
 	public:
 	class Iterator::public AbstractIterator{
-		//...
+		...
 	};
-	//...
+	...
 };
 
 class set{
 	...
 	public:
 	class Iterator::public AbstractIterator{
-		//...
+		...
 	};
 };
 
 template<typename Fn>
-
-void foreach(AbstractIterator &lst; AbstarctIterator &end; Fn f){
+void foreach(AbstractIterator &start, AbstarctIterator &end, Fn f){
 	while(start != end){
-		f(start);
+		f(*start);
 		++start;
 	}
 }
 ```
+
 ## Revisiting Big 5
 ```cpp
 class Book{
@@ -67,10 +70,9 @@ Text::Text(const Text &other):
 	Book{other}, 
 	topic{other.topic} {}
 // only copy the Book field
-
 // using superclass's copy constructor
 ```
-- Assignment
+- Copy Assignment
 	- First call `Book`'s operator
 	- then assign `Text`'s field
 
@@ -91,31 +93,30 @@ Text::Text(Text &&other):
 
 ```
 
-- `other` is an rvalue reference
-- `other` is a constant pointer to an rvalue object
+- `other` is a constant pointer to an Rvalue object
 
-- However, `other` itself is an lvalue (it has address)
+- However, `other` itself is an Lvalue (it has address)
 
-- So `Book{other}` calls the copy constructor instead of move comstructor
+- So `Book{other}` calls the copy constructor instead of move constructor
 
 - Q: How do I treat `other` as an rvalue so that move constructor runs 
 - A: A function does that!
 
 - The C++ function `std::move` allows us to treat any lvalue as an rvalue
 
+Correct version: 
 ```cpp
-Right version: Text::Text(Text &&other):
+Text::Text(Text &&other):
 	Book{std::move(other)},
 	topic{std::move(others.topic)} {}
 	// because it is a string
 ```
 
-
 - Move assignment operator (exactly the same)
 
 ```cpp
 Text &Text::operator=(Text &&other){
-	Book::operator=(std::move (other));
+	Book::operator=(std::move(other));
 	topic = std::move(other.topic);
 	return *this;
 }
@@ -129,7 +130,7 @@ Book *pb2 = &b2;
 
 Here, the compiler looks at the declared type of `pb1`, so `Book::operator=` is called
 
-- (problem: partial assignment)
+- (problem: **partial assignment**)
 
 - Now `b1` becomes `{"B", "Brad", 100, "Physics"}`
 
@@ -137,31 +138,32 @@ Here, the compiler looks at the declared type of `pb1`, so `Book::operator=` is 
 
 ```cpp
 class Book{
-	//...
+	...
 	public:
 	virtual Book &operator=(const Book &other){
-		//...
+		...
 	}
 };
 
-class Text::Book{
-	//...
+class Text:public Book{
+	...
 	public:
-	Book &operator=(const Text &other) override{
-		//...
+	Text &operator=(const Text &other) override{
+		...
 	}
 };
 // this will not compiler because the parameter name doesn't match
 
 Text &Text::operator=(const Book &other) override{
-	//...
+	...
 }
 // this is a a valid override (even though return types are different)
 // this causing mixed assignment problem
 ```
-- allowing the text to be assigned from a `Book`/`Comic`/`Text`
+- allowing the `Text` to be assigned from a `Book`/`Comic`/`Text`
 
 - How do we even assign the topic field??
+	- the program crashes / behavior undefined
 
 - Let's restrict `Book`'s `operator=` to be called by restricting assigned through base class ptrs
 
@@ -180,18 +182,24 @@ class AbstractBook{
 	string title, author;
 	int numPages;
 	protected:
-		AbstractBook &operator=(const AbstractBook &other) override;
+	virtual AbstractBook &operator=(const AbstractBook &other);
 	public:
-		...
-		virtual ~AbstractBook() = 0;
+	...
+	virtual ~AbstractBook() = 0;
 }
 
 Text b1{...},{...};
 
 AbstractBook *pb1 = &b1;
 AbstractBook *pb2 = &b2;
-*pb1 = *pb2; // won't compile
+*pb1 = *pb2; // won't compile, the operator is protected
 ```
 
-- solve partial/mixed problem by disallowing assignment through base class pointer
+- solve partial/mixed assignment problem by disallowing assignment through base class pointer
 
+
+- note: if `operator=` is non-virtual, we get partial assignment, when assign from base class pointers, if it's virtual, we get mixed assignment
+
+- defs
+	- partial assignment: you assign a subclass to a base class which caues object slicing and eventually get an object with incomplete information
+	- mixed assignment: suppose B and C are subclasses of A. You assign B to C through base pointer 

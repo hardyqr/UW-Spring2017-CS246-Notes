@@ -1,12 +1,12 @@
-# CS246 LEC06
-# More I/O, Short topics
+# CS246
+# Lecture 6: More I/O, Short topics
 
 
 ### Read/write to files
 `#include<ifstream>`
 - `ifstream` -- read from files
 - `ofstream` -- write to files
-e.g. read + output contents of a file to readfile.cc
+eg. read + output contents of a file, `readfile.cc`
 
 ```cpp
 int main() {
@@ -19,11 +19,8 @@ int main() {
 }
 ```
 
-
-
 - The file is opened as part of initialization.
 - The file is automatically closed when filestream variable goes out of scope.
-
 
 - You can use `ifstream` variable exactly like `cin` (`istream`).
 - You can use `ofsteam` variable exactly like `cout` (`ostream`).
@@ -33,7 +30,6 @@ You can use strings as a source of data.
 `#include<sstream>`
 - `istringstream` -- read from strings
 - `ostringstream` -- write to a string
-
 
 ```cpp
 int main(){
@@ -66,11 +62,11 @@ C++ lib provides string type
 
 |LOL | C string | C++ string|
 |----|----|---|
-|equality | strcmp | s1==s2|
-|comparisons | strcmp | !=,<,<=,>,>=|
-|length | strlen | s.length()|
-|exact characters | s[0],s[1]... | s[0],s[1],...|
-|contact | strcat(s1,s2) | s1=s2+s2 s3=s1+s2|
+|equality | `strcmp` | `s1==s2`|
+|comparisons | `strcmp` | `!=`,`<`,`<=`,`>`,`>=`|
+|length | `strlen` | `s.length()`|
+|exact characters | `s[0]`,`s[1]`... |`s[0]`,`s[1]`,...|
+|contact | `strcat(s1,s2)` | `s1=s2+s2` `s3=s1+s2`|
 
 
 ## Default Arguments
@@ -86,7 +82,6 @@ void printFile(string name="myfile.txt") {
 ```
 
 To call,
-
 ```cpp
 printFile(); // uses default
 printFile("file2.txt"); // use "file2.txt"
@@ -104,10 +99,11 @@ test2(1,"bla2")//legal
 test2("bla")//illegal
 test2(,"bla")//illegal
 ```
+- 省略的总是得在后面
 
 ## Function overloading
-In C++ we can have functions that have the same name as long as differs in the number or types of parameters.
-- Just differing on the return type is not ok.
+In C++ we can have functions that have the same name as long as differs in the number / types of parameters.
+- Just differing on the return type is not ok
 ```cpp
 int neg(int a) {return -1;}
 int neg(bool a) {return !a;}

@@ -1,11 +1,11 @@
 # CS246
-## LEC 07
-## May 25, 2017
+# Lecture 07: Reference, Dynamic (heap) memory
+### May 25, 2017
 
 ```cpp
 // pass by value
 void inc(int n) {
-	n = n + 1
+	n = n + 1;
 }
 
 int x=5;
@@ -14,7 +14,7 @@ cout<<x<<endl;// prints 5
 
 // pass by pointers 
 void inc(int *n) {
-	*n = *n + 1
+	*n = *n + 1;
 }
 int x = 5;
 inc(&x);
@@ -33,7 +33,7 @@ In C++, we have anothewr kind of "pointer-like" type: references.
 
 ```cpp
 int y = 10;
-int &z = y; // z is a rvalue reference to y //???
+int &z = y; // z is a Lvalue reference to y
 ```
 
 `z` acts like a constant pointer to `y`.
@@ -45,7 +45,7 @@ z = 15;
 
 int *p = &z;
 // p gets the address of y
-
+// pointer to a reference is not allowed (reference doesn't have an address), but reference of a pointer is allowed
 ```
 
 `z` always behaves like `y`. `z` is an alias for `y`.
@@ -79,9 +79,11 @@ int &z=x+y; // wrong
 ```
 
 2. cannot create a pointer to a reference
-- can create a reference  to a pointer
+- can create a reference to a pointer
+	- `int &*a`
 
-3. cannot create a reference to a reference
+3. cannot create a reference to a reference 
+- `int &&a` is not allowed
 	
 4. cannot create an array of references
 
@@ -110,7 +112,7 @@ istream &operator>>(istream &in, int &n);
 1st argument
 - streams cannot be copied (pass by value is out)
 
-why return an istream?
+why return an `istream`?
 - for cascading to work
 
 ```cpp
@@ -122,29 +124,27 @@ operator>>(operator>>(cin,x),y);
 
 ### Pass by value vs Pass by Reference
 ```cpp
-struct ReallyBig {/*...*/};
-int f(ReallyBig rb) {/*...*/};
+struct ReallyBig {...};
+int f(ReallyBig rb) {...};
 
-ReallyBig db:/*...*/;
+ReallyBig db ...;
 
 f(db); // expensive as a copy of db is made for function f
-
 ```
-
 
 If we want to avoid the copy, the only option in C would be to pass the address 
 
 ```cpp
-int g(ReallyBig *rb) {/*...*/};
+int g(ReallyBig *rb) {...};
 ```
 
 C++ you have the added option to pass by reference 
 ```cpp
-int h(ReallyBig &rb) {/*...*/};
+int h(ReallyBig &rb) {...};
 ```
 
 ```cpp
-int i(const ReallyBig &rb) {/*...*/};
+int i(const ReallyBig &rb) {...};
 // pass by reference to const
 // can only read it but not modify
 ```
@@ -152,13 +152,12 @@ int i(const ReallyBig &rb) {/*...*/};
 - disallows updates to the value
 
 ```cpp
-void f(int &n) {/*...*/};
-void g(const int &n) {/*...*/};
+void f(int &n) {...};
+void g(const int &n) {...};
 f(5); // won't compile
 f(x+y); // won't compile
 g(5); // compiles
 g(x+y); // compiles
-
 ```
 
 ## Dynamic (heap) Memory
@@ -172,7 +171,7 @@ free(p);
 valid in C++. Not allowed in CS246.
 
 In C++, we use `new` and `delete`.
-- `new` is a type aware
+- `new` is type aware
 
 ```cpp
 struct Node {
@@ -183,10 +182,9 @@ struct Node {
 Node *np = new Node;
 ```
 
-
 - you get exactly the amount of memory needed by `Node`
-To free,
 
+To free,
 ```cpp
 delete np; // np must be a ptr returned by a call to new
 ```
@@ -207,9 +205,7 @@ Node *np = new Node;
 Node *np = new Npde[10];
 // ...
 delete [] np; // when deleting an array, add "[]"
-
 ```
-
 
 ```cpp
 Node getMeNode(){
@@ -222,25 +218,15 @@ Node *getMeNode() {
 	Node n;
 	return &n;
 }
-// results in a *dangling pointer* pointing to memory no longer yours
+// results in a "dangling pointer" pointing to memory no longer yours
 ```
 
 Never return a ptr/reference to stack allocated data.
 
 The right thing to do:
-
-
-
 ```cpp
 Node *getMeNode() {
 	Node *np = new Node;
 	return np;
 }
 ```
-
-
-
-
-
-
-

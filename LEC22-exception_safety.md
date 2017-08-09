@@ -24,7 +24,7 @@ void f(){
 - For `f()`, `p` has leaked, `m` is reclaimed
 
 - It makes sense for the program to not automatically delete pointers
-	- pointers could be  a stack address
+	- pointers could be a stack address
 	- someone else might be owners
 
 ```cpp
@@ -39,7 +39,6 @@ void f(){
 	}
 	delete p;
 }
-
 ```
 
 - Some languages have a "finally" clause/block that executes irrespective of normal normal as exceptions.
@@ -52,6 +51,7 @@ void f(){
 - **RAII**: Resource Acquisition Is Initialization (**RAII Idiom**)
 
 - Every resource should be wrapped within a stack allocated object whose job is to release the resource. 
+	- (every resource should be wrapped in a stack-allocated object)
 
 - Reading from a file
 
@@ -70,8 +70,6 @@ void f(){
 - The dtor closes/releases the resource 
 
 - Irrespective of normal control as exception, the dtor always runs
-
-
 
 
 - we want to wrap heap allocated objects within an object that's on the stack
@@ -110,7 +108,6 @@ unique_ptr<c> p{new c};
 unique_ptr<c> q = p; //copy ctor
 // won't compile
 // copy ctor of unique_ptr is disabled
-
 ```
 
 - cannot copy a `unique_ptr`
@@ -137,7 +134,7 @@ class unique_ptr{
 	T *operator->(){return ptr;}
 };
 ```
-//??? wtf are those
+
 - `std::shared_ptr`
 ```cpp
 void g(){
@@ -150,7 +147,7 @@ void g(){
 ```
 
 - when `g()` goes out of scope, dtor runs 
-	- realize that it's not the "last" ptr to the heap allocated object so does not delete the object
+	- realize that `q` is not the "last" ptr to the heap allocated object so does not delete the object
 
 - when `p` goes out of scope it finds the "reference count" to be zero
 	- deallocates the object

@@ -334,7 +334,9 @@ int main(){
 - a constructor, do not return anything
 
 
-### explicit keyword ???
+### explicit keyword
+
+- avoid implicit conversion
 
 ### deconstructor
 
@@ -351,11 +353,11 @@ int main(){
 
 ### rule of 5
 - if create one of the five, create all of the five
-	-
-	-
-	-
-	-
-	-
+	- destructor
+	- copy constructor
+	- copy assignment operator
+	- move constructor
+	- move assignment operator
 
 ### member functions **vs** standalone functions
 
@@ -397,6 +399,93 @@ int main(){
 
 ### Iterator Class for `List`
 
+```cpp
+class List{
+	class Node;
+	Node *theList = nullptr;
+	public:
+	class Iterator{
+		Node *p;
+		explicit Iterator(Node *p); // ctor
+		public:
+		int &operator*() const;
+		Iterator &operator++();
+		bool operator==(const Iterator &other) const;
+		bool operator!=(const Iterator &other) const;
+		// overload *, ++, !=, ==
+		// notice, except ++, all const methods
+
+		friend class List;
+		~Iterator(); // dtor
+	};
+
+	Iterator begin();
+	Iterator end();
+
+	void addToFront(int i);
+	int ith(int i);
+
+	~List(); //dtor
+};
+
+struct Node{
+	int data;
+	Node *next;
+	Node(int data, Node *n): data{data}, next{n} {}
+	~Node{delete next;}
+};
+
+List::Iterator::Iterator(Node *p): p{p} {}
+
+int &List::Iterator::operator*() const{
+	return p->data;
+}
+
+List::Iterator &List::Iterator::operator++(){
+	p = p->next;
+	return *this;
+}
+
+bool List::Iterator::operator==(){
+	//return p == other.p;
+	return *this == other;
+}
+
+bool List::Iterator::operator!=(){
+	return !(*this == other);
+}
+
+List::Iterator List::begin(){return Iterator{theList};}
+
+List::Iterator List::end(){return Iterator{nullptr};}
+
+void List::addToFront(int i){
+	theList = new Node{i, theList};
+}
+
+int ith(int i){
+	Node *cur = theList;
+	for(int j = 0; j < i && cur; ++j, cur = cur->next);
+	return cur->data;
+}
+
+int main(){
+	List lst;
+	lst.addToFront(1);
+	lst.addToFront(2);
+	lst.addToFront(3); // 3-2-1
+	for(List::Iterator it = lst.begin(); it != lst.end() ; ++it){
+		cout << *it << endl; // prints 3\n2\n1\n
+	}
+	// alternative
+	/*
+	for(auto it: lst){
+		cout << *it <<endl;
+	}
+	*/
+}
+```
+
 ### `auto` keyword
 
 ### `friend` keyword
@@ -406,8 +495,10 @@ int main(){
 ### System Modelling (UML)
 
 ### Relationship 1: Composition
+- "owns a"
 
 ### Relationshop 2: Aggregation
+- "has a"
 
 ### Relationship 3: Inheritance
 
@@ -439,7 +530,9 @@ int main(){
 
 ### Stack unwinding
 
-### Iterator Patter
+- when exit a scope, stack allocated objects' destructor are called (the process of destroying local objects)
+
+### Iterator Pattern
 
 ### Observer Pattern
 
@@ -542,14 +635,17 @@ class Strike: public Weapon{
 	void useOn(Turtle &t) override{...}
 	void useOn(Bullet &b) override{...}
 };
-
-// why don't we implement useOn in Weapon???
-
 ```
 
 ### Double Dispatch
 
+- Visitor Design Pattern
+
+- overloading (multiple types of parameters) + overriding (overrides virtual method of superclass)
+
+
 ### Adding functionality without changing class hierarchy code
+- Decorator pattern???
 
 ### Circular Dependencies: solution: forward declare when possible
 
@@ -564,7 +660,7 @@ class Strike: public Weapon{
 ```cpp
 #include <X11/Xlib.h>
 
-class XWindow{
+class Xwindow{
 	Display *d;
 	Window w;
 	GC gc;
@@ -581,7 +677,7 @@ class XWindow{
 
 - `xwindowimpl.h`
 ```cpp
-struct XWindowImpl{
+struct XwindowImpl{
 	Display *d;
 	Window w;
 	GC gc;
@@ -591,26 +687,35 @@ struct XWindowImpl{
 
 - `window.h`
 ```cpp
-class XWindowImpl;
-class XWindow{
-	XWindowImpl *pImpl;
+class XwindowImpl;
+class Xwindow{
+	XwindowImpl *pImpl;
 	public:
 	...
 };
 ```
 - `window.cc`
 ```cpp
-...
+Xwindow::Xwindow(): pImpl{new XwindowImpl} {}
+
+Xwindow::~Xwindow(delete pImpl;)
 ```
 
 
 ### Generalize the pImpl Idiom: Bridge Design Pattern
+
+
+
+
 
 ### Exception Safety
 
 ### RAII
 
 - Resource Aquisition Is Initialization (RAII Idiom)
+
+- always use a wrapper to make memory being alocated on stack and gets automatically freed
+
 
 ### `unique_ptr`
 
@@ -628,18 +733,59 @@ class XWindow{
 ### Casting: 4 kinds of casts
 
 - `static_cast`
+	- does not check the actual type
 
 - `reinterpret_cast`
 
 - `const_cast`
 
 - `dynamic_cast`
+	- checks the actual type
 
+- for smart ptrs
+	- `static_pointer_cast`
+	- `dynamic_pointer_cast`
+	- `const_pointer_cast`
 
 ### Solution to mixed/partial assignment problem with virtual `operator=`
 
+- there're 2 solutions
+
+- first is to make the base class abstract (has Pure Virtual method)
+```cpp
+class AbstractBook{
+	string title, author;
+	int numPages;
+	protected:
+	virtual AbstractBook &operator=(const AbstractBook &other);
+	public:
+	virtual ~AbstractBook() = 0;// dtor
+};
+
+class normalBook:public AbstractBook{
+	public:
+	normalBook &operator=(const AbstractBook &other) override;
+};
+
+class Text: public AbstractBook{
+	string topic;
+	...
+};
+
+class Comic: public AbstractBook{
+	string hero;
+	...
+};
+```
+
+
 ### VTable and Vptr
-// what do we have to know about these concepts???
+- exist when there is virtual method
+
+- dynamic dispatch is expensive
+	- dereference twice
+	- need space for vtable and vptr
+
 
 # Other Problems
 

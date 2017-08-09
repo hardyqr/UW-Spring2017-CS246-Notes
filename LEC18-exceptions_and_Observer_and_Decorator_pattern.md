@@ -6,7 +6,7 @@
 #### Recap 
 ```cpp
 try{
-	//...
+	...
 } catch(SomeExn e){ // catches exceptions of type SomeExn
 	throw SomeOtherExn{...}
 	throw e;
@@ -23,7 +23,7 @@ try{
 
 ```cpp
 try{
-	//...
+	...
 } catch(...){ // yes, literally "...". to catch any exception
 	//catch everything
 }
@@ -86,9 +86,9 @@ try{
 
 - `2-observer/`
 
-![](ObserverPattern.png)
+![](images/ObserverPattern.png)
 
-- if a class needs to be *abstract*, but there is no *pure virtual* method, make the destructor *pure virtual*
+- if a class needs to be *abstract*, but there is no *pure virtual* method, make the destructor *pure virtual* //???
 
 // why the class needs to be P.V.? in what condition?
 

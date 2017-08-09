@@ -11,7 +11,6 @@
 |+getX: Integer|
 |+getY: Integer|
 
-// ??? what does optional mean?
 
 - `-` indicates private
 - `+` indicates public
@@ -45,9 +44,9 @@ Basis b; // won't compile since v1, v2 require default constructor
 	// Now it compiles
 	```
 
-Composition: embedding an object inside another
+**Composition: embedding an object inside another**
 
-- Basis "OWNS" the `Vec`
+- `Basis` "OWNS" `Vec`
 
 - typically, `class A` "OWNS" `class B`
 	- if `B` has no existence of its own
@@ -72,6 +71,10 @@ Composition: embedding an object inside another
 
 [a UML graph for agg.]
 
+
+- composition - **own** <br>
+- aggregation - **has** <br>
+- inheritance - **is**
 ### Inheritance
 - n. 继承
 
@@ -133,7 +136,7 @@ class Text:public Book{
 - Won't compile since
  	- `title`, `author`, `numPages` are all private in `Book`
 	- even if those inherited fields were public, still won't compile
-		- rule: the MIL for `Text` can only use fields it declared ( which is only `topic` in our case)
+		- rule: the MIL for `Text` can **only** use fields it declared ( which is only `topic` in our case)
 	- steps for object construction:
 		1. space is allocated
 		2. superclass part of the object is constructed
@@ -154,20 +157,18 @@ class Text:public Book{
 ### Protected Visibility
 
 ```cpp
-
 class Book{
 	protected:
 	string title, author;
 	int numPages;
 	public:
-	// ...
+	...
 };
 ```
 Protected members are accessible by **the class** but also **the subclass**.
 
 
 The `Text` class could implement:
-
 ```cpp
 void Text::addAuthor(string auth){
 	author += auth;
@@ -176,10 +177,9 @@ void Text::addAuthor(string auth){
 - can access `author` as `Text` is a child and `author` is protected
 
 ```cpp
-
 int main(){
-	Text t = //...
-	t.author = //...
+	Text t = ...
+	t.author = ...
    	// won't compile
 }
 ```
@@ -200,7 +200,7 @@ class Book{
 	int numPages;
 	protected:
 	void addAuthor(string auth){
-		//...
+		...
 		author+=auth;
 	}
 };

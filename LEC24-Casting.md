@@ -7,6 +7,9 @@
 
 > **Explicit type conversion (casting)** is the use of direct and specific notation in the source code to request a conversion or to specify a member from an overloaded class. There are cases where no automatic type conversion can occur or where the compiler is unsure about what type to convert to, those cases require explicit instructions from the programmer or will result in error.
 
+
+- casting: forcing an object to be treated as another object.
+
 ```cpp
 Node n;
 int *p =  (int *)&n;
@@ -58,7 +61,7 @@ t->draw();
 
 #### `const_cast`
 
-- can be used to remove const identifier from a particular variable
+- can be used to remove `const` identifier from a particular variable
 
 ```cpp
 const int *q = ...
@@ -103,6 +106,14 @@ for(int i = 0; i < len ;i++){
 	- used to cast `shared_ptr`s to `shared_ptr`s
 
 #### RTTI: Runtime type Information
+
+- other smart pointers
+	- `static_pointer_cast`
+	- `dynamic_pointer_cast`
+	- `const_pointer_cast`
+
+- they work exactly the same as the previous ones, except it takes `shared_ptr` and returns `shared_ptr`
+
 ```cpp
 void whatIsIt(shared_ptr<Book> b){
 	if(dynamic_pointers_cast<Text>(b))
@@ -118,8 +129,8 @@ void whatIsIt(shared_ptr<Book> b){
 ```cpp
 Comic c{...};
 Book &b = c;
-//...
-Comic &cr = dynamic_cast<Comic &>(b);
+...
+Comic &cr = dynamic_cast<Comic&>(b);
 ```
 
 - if `b` is not a reference to a `Comic`, `bad_cast` exception is thrown
@@ -139,7 +150,7 @@ Previous solution: Make base class abstract with a protected assignment operator
 
 ```cpp
 Comic &Comic::operator=(const Book &other) override{
-	Comic &cother = dynamic_cast<const &>(other);
+	Comic &cother = dynamic_cast<const&>(other);
 	Book::operator=(cother);
 	hero = cother.hero;
 	return *this;
@@ -172,3 +183,8 @@ class Text: public Book{
 	- get the address of the method
 
 - suppose `Comic` did not override `isItHeavy`
+
+#### How does virtual work?
+- from Alvin's notes
+
+- dynamic dispatch, get the right method based on the runtime type

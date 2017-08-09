@@ -1,5 +1,5 @@
 # CS246
-# LEC11 Destructors, Copy Assignment
+# Lecture 11: Destructors, Copy Assignment Operator
 
 ## Destructors 
 
@@ -29,15 +29,14 @@ Node *np = new Node{1, new Node{2, new Node{3, nullptr}}};
 If we do not delete `np`, then 3 nodes are leaked.
 
 - If we write `delete np;`
-
-	- we are deleting `Node 1`
-	- `Node 2`, ` Node 3` are still leaked
+	- we are deleting Node 1
+	- Node 2, Node 3 are still leaked
 
 We need our own destructor.
 
 ```cpp
 struct Node{
-	// ...
+	...
 	~Node(){
 		delete next;
 	}
@@ -55,15 +54,13 @@ student bobby = billy; // copy constructor
 student jane;
 
 jane = billy; // copy assignment operator
-
-
 ```
 
 Sometimes the free operator `=` is not what we want.
 
 ```cpp
 struct Node{
-	// ...
+	...
 	Node &operator=(const Node &others) {
 		data = others.data;
 		delete next;
@@ -79,7 +76,6 @@ n1 = n2 = n3;
 
 // it is calling:
 n1.operator=(n2.operator=(n3));
-
 ```
 
 - Since `operator=` updates on existing object, next could already be pointing to heap allocated memory.
@@ -91,16 +87,15 @@ n = n;
 ```
 
 - We delete `n.next` and then read `n.next`
-	- next is a dangling ptr
+	- `next` is a dangling ptr
 
 - Add a self assignment check
 
 ```cpp
 struct Node{
-	// ...
+	...
 	Node &operator=(const Node &other) {
-		if(this == &other) 
-			return *this;
+		if(this == &other) return *this;
 		data = other.data;
 		delete next;
 		next = other.next?new Node(*other.next):nullptr;
@@ -126,7 +121,7 @@ Node &operator=(const Node &other){
 ```cpp
 #include <utility>
 struct Node{
-	//...
+	...
 	void swap(Node &other){
 		using std::swap;
 		swap(data, other.data);

@@ -1,7 +1,6 @@
 # CS246
 # Lecture 14: Iterator Design Pattern, more encapsulation, a little UML
 
-
 ### Last time
 
 ```cpp
@@ -18,7 +17,7 @@ class List{
 
 ### Iterator Design Pattern
 
-- create a calss (Iterator) that will manage access to `Node`s
+- create a class (`Iterator`) that will manage access to `Node`s
 
 - acts as an abstraction of a ptr into the linked list
 
@@ -27,13 +26,13 @@ class List{
 ```cpp
 // arr is an int array
 for(int *p = arr; p!=arr + array_size; ++p){
-	//...
+	...
 }
 ```
 
 - The iterator class should support
 	- `*` (dereference)
-	- `++` operator
+	- `++` (operator)
 	- `!=` (==)
 
 - begin and end method
@@ -50,7 +49,7 @@ class List{
 		int &operator*() const{
 			return cur->data;
 		}
-		Iterator &operator(){
+		Iterator &operator++(){
 			cur = cur->next;
 			return *this;
 		}
@@ -79,7 +78,7 @@ int main(){
 	lst.addToFront(3); // 3->2->1
 
 	for(List::Iterator it = lst.begin(); it != lst.end() ;++it){
-		//would lst.end() is nullptr
+		// lst.end() is nullptr
 		// loop goes on when lst does not point to a nullptr
 		cout << *it << endl;
 		int &temp = *it;
@@ -88,8 +87,10 @@ int main(){
 
 ```
 
-auto keyword: automatic type deduction
-`auto x = y; // define x to be the same type as y`
+- `auto` keyword: automatic type deduction
+```cpp
+auto x = y; // define x to be the same type as y
+```
 
 
 - C++ has built-in support for Iterator Design Pattern
@@ -114,23 +115,20 @@ for(auto &n: lst){
 
 ### Encapsulation (contd.)
 
-- Iterator constructor public
-`auto it = Iterator{nullptr}`
-
-- We'd like clients to use `begin` and `end`
-	- let's make constructor for iterator private
+- Iterator constructor was public
+- however we'd like to make it private and clients can only use `begin` and `end`
 
 
 ```cpp
 class List{
-	//...
+	...
 	public:
 	class Iterator{
 		Node *cur;
-		explicit Iterator(Node *cur)//...
+		explicit Iterator(Node *cur)...
 		public:
-		//...
-		friend class List;
+		...
+		friend class List; // so List can access private fields / members of Iterator
 	};
 
 	Iterator begin(){
@@ -140,7 +138,7 @@ class List{
 
 ```
 - make as few friends as possible
-	- it breaks at encapsulation
+	- it breaks encapsulation
 	- if you change implementation, the friend might be effected
 
 - Previous advice: keep fields private
@@ -177,14 +175,13 @@ class Vec{
 Class Vec{
 	int x,y;
 	public:
-	//...
+	...
 	firend ostream &operator<<(operator &out , const Vec &other);
 };
 
-ostream &operator<<(ostream &out, const vec &other){ // why "other" has to be a reference???
+ostream &operator<<(ostream &out, const vec &other){
 	out << other.x << other.y << endl;
 }
-
 ```
 
 ## UML (Unified Modeling Language) System Modeling

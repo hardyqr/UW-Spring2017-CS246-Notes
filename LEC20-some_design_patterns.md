@@ -17,7 +17,7 @@
 ```cpp
 
 Enemy *e = ...
-Level *l = ...
+Level *l = ... // let level decides what enemy to create
 Players *p = ...
 
 while(p->notDead()){
@@ -25,7 +25,6 @@ while(p->notDead()){
 	e = l->createEnemy();
 	// allocate players
 }
-
 ```
 
 - let's create a factory of enemy inside the level classes
@@ -94,6 +93,8 @@ class RedTurtle: public Turtle{
 
 - take any *public virtual* method
 
+- to have public method to call private method
+
 - `public:` 
 	- used by client code
 	- comes with pre/post conditions
@@ -101,7 +102,6 @@ class RedTurtle: public Turtle{
 - `virtual` 
 	- invites subclasses to replace behavior
 
-//some examples???
 
 - there is no way to guarantee that a subclass that overrides a virtual method still guarantees the past conditions
 
@@ -112,7 +112,7 @@ class RedTurtle: public Turtle{
 ```cpp
 class DigitalMedia{
 	public:
-		virtual void play() = 0; // not using NVI 
+	virtual void play() = 0; // not using NVI 
 };
 ```
 
@@ -120,9 +120,9 @@ class DigitalMedia{
 ```cpp
 class DigitalMedia{
 	public:
-		void play(){doPlay();}
+	void play(){doPlay();}
 	private:
-		virtual void doPlay() = 0;
+	virtual void doPlay() = 0;
 };
 ```
 
@@ -183,8 +183,6 @@ class Enemy{
 		virtual void strike(Rock &) = 0;
 		virtual void strike(Stick &) = 0;
 }
-
-
 ```
 
 - the problem

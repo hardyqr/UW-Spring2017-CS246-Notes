@@ -2,8 +2,48 @@
 # Lecture 21: Visitor Design Pattern (contd.), Compilation Dependencies
 
 
+## Visitor Design Pattern
 
-//??? what's the context?
+- Add functionality to an inheritance hierarchy without actually changing/adding code to the hierarchy.
+	- we can do this as long as the hierarchy already contains method that accept visitors
+
+```cpp
+class Book{
+	public:
+	virtual void accept(BookVisitor &v){
+		v.visit(*this);
+	}
+};
+
+class Text: public Book{
+	public:
+	void accept(BookVisitor &v) override{
+		v.visit(*this);
+	}
+};
+
+class Comic: public Book{
+	public:
+	void accept(BookVisitor &v) override{
+		v.visit(*this);
+	}
+};
+
+class BookVisitor{
+	public:
+	virtual void visit(Book &b) = 0;
+	virtual void visit(Text &t) = 0;
+	virtual void visit(Comic &c) = 0;
+};
+
+```
+- let's catalogue our collection of books
+
+- use another name for `Book` - # of books by author
+
+- use topic for `Text` - # of texts for this topic
+
+- use hero for ``Comic - # of comics for this hero
 
 ```cpp
 class Catalogue: public BookVisitor{
@@ -23,8 +63,8 @@ class Catalogue: public BookVisitor{
 	}
 };
 ```
-
 ## Compilation Dependencies
+
 
 - `se/visitor/broken`
 
@@ -35,22 +75,21 @@ class Catalogue: public BookVisitor{
 
 - unnecessary `include` slows down compile time
 
-It is best to avoid unnecessary `include`
+It is best to avoid unnecessary `include`.
 
 - advice: always prefer to **forward declare** a class/type instead of including it.
 
 ```cpp
-
 class XYZ; // forward declaration
 ```
 
 - `a.h`
-```cpp
+```
 class A{...};
 ```
 
 - `b.h`
-```cpp
+```
 #include "a.h" // compiler needs to know what's in a since b is going to have/inherit members from A
 class B: public A{
 	...
@@ -59,7 +98,7 @@ class B: public A{
 ```
 
 - `c.h`
-```cpp
+```
 #include "a.h" // compiler needs to know the size of C -> needs to know size of A -> needs fields in A
 class C{
 	A a;
@@ -111,7 +150,7 @@ class XWindow{
 ```
 - Note that a file includes `window.h` would need to recompile even if the change in window.h is to a **private** member
 
-- **pImpl Idiom**: pointer to implamentation
+- **pImpl Idiom**: pointer to implementation
 - take the private members into a seperate implementation class 
 - replace there with a pointer to the implementation class
 
@@ -138,5 +177,13 @@ class XWindow{
 - `window.cc`
 
 ```cpp
-...
+#include "window.h"
+#include "xwindowImpl.h"
+
+Xwindow::Xwindow(): pImpl{new XwindowIplm} {}
+
+~Xwindow(){delete pImpl;}
+
 ```
+
+- Bridge Design Pattern (similar to Strategy Pattern)

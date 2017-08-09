@@ -6,21 +6,20 @@
 
 ```cpp
 Node plusOne(Node n){
-	//...
+	...
 	return n;
 }
 
 Node n{1, new Node{2, nullptr}};
 
 Node n2{plusOne(n)};
-
 ```
 
 If the RHS is a **temporary** then steal, otherwise copy.
 
-Rvalue Reference (`&&`) - refers to a temporary object
+- **Rvalue Reference** (`&&`) - refers to a temporary object
 
-Lvalue Reference (`&`)
+- **Lvalue Reference** (`&`)
 
 #### Move constructor
 
@@ -28,7 +27,7 @@ Lvalue Reference (`&`)
 
 ```cpp
 struct Node{
-	//...
+	...
 	Node(Node &&other):
 		data{other.data},
 		next{other.next} {
@@ -47,14 +46,13 @@ Note: Now 4 calls to copy constructor, 1 call to move constructor
 #### Move assignment operator
 
 ```cpp
-Node m = //...
+Node m = ...
 m = plusOne(n); // plusOne(n) is rvalue
 
 Node &operator=(Node &&other) {
 	swap(other);
 	return *this;
 }
-
 ```
 
 - Move copy / assignment operator
@@ -83,10 +81,10 @@ Node &operator=(Node &&other) {
 (see `/8-elison/vec.cc`)
 ```cpp
 Node plusOne(Node n){
-	//...
+	...
 	return n;
 }
-Node n://...
+Node n:...
 Node n2{plusOne(n)};
 ```
 
@@ -96,14 +94,14 @@ Vec makeAVec(){return {3,4};}
 Vec v = makeAVec();
 ```
 
-- If you run this, copy/move constructors are not  called
+- If you run this, copy/move constructors are not called
 	- program directly writes `{3,4}` to `v`
+	- this is a compiler optimization
 
 - A compiler is allowed (not required) to skip copy/move constructor in certain situations
-	- even if the constructor have side affects
+	- even if the constructors have side affects
 
 To turn off this optimization: `g++14 -fno-elide-constructors [files]`
-
 
 
 ## Standalone functions vs Methods - operator overloading 
@@ -138,18 +136,16 @@ What about I/O operators? <br>
 ```cpp
 struct Vec{
 	ostream &operator(ostream &out) {
-		//...
+		...
 		return out;
 	}
 };
 
-v2<<(v1 << out);
+v2 << (v1 << out);
 ```
 
-
-
-- While it is possible to implement I/O operator as methods, do not do it 
-	- it makes writing output statement confusing as we need to ??? the LHS and RHS
+- While it is possible to implement I/O operator **as methods**, do not do it 
+	- it makes writing output statement confusing as we need to flip the LHS and RHS
 
 - Some operators must be implemented as methods
 	- `operator=`
@@ -179,7 +175,8 @@ Vec *vecs1 = new Vec[3]; // heap allocated array of Vec objects
 	- work for both stack / heap allocation: create array of pointers to objects 
 		```cpp
 		Vec *vecs[3]; // stack allocated array of Vec *
-		Vec **vecs1 = new Vec*[3];` `vecs1[0] = new Vec{1,2}; //???
+		Vec **vecs1 = new Vec*[3]; // heap allocated
+		vecs1[0] = new Vec{1,2};
 		
 		// how do we free all the memories?
 		for(int i = 0; i < vecsize; i++ )
@@ -187,18 +184,17 @@ Vec *vecs1 = new Vec[3]; // heap allocated array of Vec objects
 		delete [] vecs1;
 		```
 
-## Seperater Completion
+## Seperate Compilation
 
-headers `.h` - type definitions, function headers
+- headers `.h` - type definitions, function headers
 
-implementation `.cc` - function definitions
+- implementation `.cc` - function definitions
 
-Method headers go into the header files.
+- Method headers go into the header files.
 
-Method implementation in `.cc` file.
+- Method implementation in `.cc` file.
 
 `node.h`
-
 ```cpp
 #ifndef NODE_H
 #define NODE_H
@@ -208,7 +204,7 @@ struct Node{
 	Node *next;
 	Node{int data, Node *next};
 	int getData();
-	// ...
+	...
 };
 
 #endif
@@ -257,3 +253,5 @@ cout << billy.grade() << endl; // compiles
 	- the first `grade` does not promise it will not change fields
 
 If you declare a method const, you are promising not to change the fields of the object on which the methods was called.
+
+- can only call const methods on const files

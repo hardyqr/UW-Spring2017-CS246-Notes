@@ -1,5 +1,5 @@
 # CS246
-# LEC 10 Constructors
+# Lecture 10: Constructors
 
 ### Default Constructor
 - every class comes with a default constructor which takes no parameter
@@ -40,8 +40,8 @@ vec v{1,2}; // works
 	
 ```cpp
 int x; 
-//...
-struct myStruct {
+...
+struct myStruct{
 	const int a = 5; // in class initialization
 	int &y = x;
 };
@@ -51,11 +51,10 @@ struct myStruct {
 ```cpp
 struct student{
 	const int id;
-	//...
+	...
 };
 
 // while id needs to be a const, the value needs to be different for each student object
-
 ```
 
 - Can we do it inside the constructor body?
@@ -84,9 +83,6 @@ struct student {
 		mt{mt_value},
 		final{final_value}{}
 };
-
-
-
 ```
 
 - MIL is not just restricted to consts and references
@@ -107,7 +103,7 @@ vec student{
 };
 ```
 
-MIL takes priority over in class initialization.
+- **MIL takes priority over in class initialization.**
 
 
 ### Copy constructor 
@@ -123,6 +119,7 @@ student bobby{billy}; // same as the previous line
 Copy constructor is used to construct an object as a copy of an existing object.
 - **you get a copy constructor for free** // how do we understand **for free**?
 	- field for field copy
+	- for free: get a new one, with new heap memory (if applicable)
 
 
 - Every class comes with
@@ -134,7 +131,7 @@ Copy constructor is used to construct an object as a copy of an existing object.
 	- move assignment operator
 
 
-A copy constructor always takes a single reference of the class as a parameter.
+A copy constructor always takes **a single reference** of the class as a parameter.
 
  ```cpp
 struct student{
@@ -142,7 +139,7 @@ struct student{
 	student(const student &other): 
 		assns{other.assns}, 
 		mt{other.mt}, 
-		filnal{other.final} {}
+		final{other.final} {}
 };
 // exactly what a free copy constructor does
 ```
@@ -180,7 +177,7 @@ Node *m = new Node{*np};
 
 ```cpp
 struct Node{
-	//...
+	...
 	Node(const Node &other): 
 		data{other.data}, 
 		next{other.next ? new Node{*other.next}:nullptr} {}
@@ -197,12 +194,12 @@ Places where a copy constructor is called:
 
 3) when sth is returned by value
 
-- Parameter of a copy constructor must be a reference
+- Parameter of a copy constructor must be a **reference**
 	- cannot be pass by value
 	
 ```cpp
 struct Node{
-	//...
+	...
 	Node(int data_value): 
 		data{data_value}, 
 		next{nullptr} {}
@@ -211,10 +208,18 @@ struct Node{
 Node n{4};
 Node n = 4; // also legal 
 
-void foo(Node n){ //... }
+void foo(Node n){ ... }
 foo(4); // legal
 ```
 
 Single parameter constructor defines implicit automatic conversions
 
 `string str = "hello"` means there is a constructor in `string`
+
+
+#### when a copy constructor is called
+- object is initialized by another object
+	- `Node n2 = n1;`
+	- `node n2{n1};`
+- an object is passed by value
+- an object is returned by a function

@@ -1,6 +1,7 @@
 # CS246 
 # Lecture 16: Method Overrdding, Dynamic Dispatch
 
+- override - subclasses overrides superclass
 
 - Book `isHeavy` if > 200 pages
 - Text > 500 pages
@@ -10,14 +11,14 @@
 
 ```cpp
 class Book{
-	//...
+	...
 	int numPages;
 	public:
 	int getNumPages() const{ return numPages;}
 	bool isHeavy() const{return numPages > 200;}
 };
 
-class Comic:public Book{
+class Comic: public Book{
 	public:
 	bool isHeavy()const{return getNumPages()>30;}
 };
@@ -33,7 +34,6 @@ c.isHeavy();// Comic::isHeavy runs, true
 Book b2 = comic{"BigComic",auth,40,"Batman"}; // legal because comic is a book
 
 b2.isHeavy(); // Book::isHeavy runs
-
 ```
 - Book
 	- title
@@ -66,11 +66,17 @@ bp->isheavy(); // Book::isHeavy runs
 // cp, bp are all pointing to the begining of the Comic object
 ```
 - **Static Dispatch**
-	- the compiler looks at the declared type of the ptr, finds it to be a `Book` ptr, and makes the decision that `Book::isHeavy` will be called
+	- the compiler looks at the **declared type** of the ptr, finds it to be a `Book` ptr, and makes the decision that `Book::isHeavy` will be called
 
 - This default behavior is not what we typically want
  	- we'd like to use `Book` ptrs to point to any kind of `Book`, but still have the overriden methods run
 	- use keyword `virtual`
+
+
+- notice: 
+	- withoud keyword `virtual`, static dispatch, look at the declared type
+	- with keyword `virtual`, dynamic dispatch, vptr points to vtable, look at the runtime type
+
 
 `inheritance/example3`
 
@@ -99,11 +105,13 @@ rb.isHeavy(); // Comic::isHeavy runs
 
 ```
 
-- For a virtual method, the decision of which method to call is delayed till the program is running
+- For a **virtual method**, the decision of which method to call is delayed till the program is running
 	- the chosen method depends on the runtime type of the object pointed to it
 	- this is called **Dynamic Dispatch**
 
 - costs more than static dispatch
+	- dereferce twice: vptr dereference + method in vtable dereference
+	- need space for vtable and vptr ????
 
 
 ##### collections of `Book`s
@@ -112,7 +120,7 @@ rb.isHeavy(); // Comic::isHeavy runs
 Book *collection[20];
 // each element can point to a Book, Text or Comic
 
-//...
+...
 
 for(int i = 0;i<20;i++){
 	collection[i]->isHeavy();
@@ -124,9 +132,8 @@ for(int i = 0;i<20;i++){
 
 ```cpp
 ostream &operator<<(ostream &out, const class &c){
-	//...
+	...
 }
-
 ```
 - `ostream` is the superclass of `ostringstream`
 
@@ -143,7 +150,7 @@ class X{
 	X(int n): X{new int[n]} {}
 		
 	~X() {delete [] x;}
-	//Virtual ~X() {delete [] x;}
+	//virtual ~X() {delete [] x;}
 }
 
 class Y:public X{
@@ -162,7 +169,6 @@ class Y:public X{
 X *myx = new Y(10,20);
 
 delete myx; // leaks memory
-
 ```
 - only `X`'s destructor is called
 	- `Y::y` has leaked
@@ -176,7 +182,7 @@ If a class is not to have subclasses, you can insist on this by making the class
 
 ```cpp
 class Y final:public X{
-	//...
+	...
 };
 
 ```
@@ -184,24 +190,22 @@ class Y final:public X{
 
 ```cpp
 class Student{
-	//...
+	...
 	public:
 	virtual int fees() = 0; // P.V. method
 };
 
 class coop:public Student{
-	//...
+	...
 	public:
 	int fees() override{...}
 };
 
 class regular:public Student{
-	//...
+	...
 	public:
 	int fees() override{...}
-};_i
-
-
+};
 ```
 - we haven't implemented `Student::fees`
 
@@ -209,7 +213,6 @@ class regular:public Student{
 
 - virtual
 	- subclasses could replace behavior
-
 
 - pure virtual
 	- subclasses must provide behavior

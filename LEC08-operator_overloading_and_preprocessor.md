@@ -1,5 +1,5 @@
 # CS246
-# Lecture 8: Operators, Overloading/Preprocessor
+# Lecture 8: Operator overloading, Preprocessor
 
 - `<<, >>`
 	- bitshift operators
@@ -52,7 +52,6 @@ Grade g;
 cout<<g; // cout<<g<<endl; // if you want a newline
 
 operator<<(ostream &out,const Grade &g){
-	// ??? 既然是传const Grade 何必要是reference?
 	out<<"your grade:"<<g.mark<<"%";
 	return out;
 }
@@ -73,16 +72,18 @@ iostream &operator>>(istream &in, Grade &g){
 
 Before the compiler sees the code, the preprocessor runs.
 
+- preprocessor edit the program text before compiler sees it
+
 - `#` --- preprocessor, a directive
 
 `#include<iostream>` <br>
 - copy and paste 
 
-`#include </*...*/>`
+`#include <...>`
 - include file from standard library ( `/usr/share/c++`  `/sur/include/c++`)
 
-```
-#include "/*...*/" // "/*...*/" means path
+```cpp
+#include "..." // "..." means path
 ```
 
 `g++14 -E -P file.cc`
@@ -92,13 +93,6 @@ Before the compiler sees the code, the preprocessor runs.
 - search and replace all occurences of VAR with VALUE
 
 using this is discouraged. use `const` instead.
-
-```cpp
-#define ever ;; //???
-
-for(ever) {...}
-```
-
 
 ### Conditional Completion
 Suppose we want a variable of type `short int` but BBOS needs `long long int`.
@@ -110,11 +104,17 @@ Problem: the change was done manually.
 
 The `-D` compile argument allows setting preprocessor variable from the command line.
 
-syntax: `g++14 -E -P -D VAR=VALUE [files]`
+syntax: `g++14 -E -P -DVAR=VALUE [files]`
 
-eg: `g++14 -E -P -D OS=IOS preprocess.cc`
+eg: `g++14 -E -P -DOS=IOS preprocess.cc`
 
-
+```cpp
+#if OS == BBOS
+	long long int key;
+#elif OS == IOS
+	short int key;
+#endif
+```
 
 ### Comments
 
@@ -137,7 +137,6 @@ the `#` comment syntax allows nesting
 
 (see `Debug.cc`)
 
-
 ### Separate Compilation
 Interface files (header `files .h`)
 - type definition, forward declarations<br>
@@ -150,6 +149,6 @@ NEVER compile header files
 - `g++ *.cc`
 - `g++ main.cc vec.cc`
 
-I want to compile individual c files separately to produce tiny parts of the executable then merge these parts.
+I want to compile individual c++ files separately to produce tiny parts of the executable then merge these parts.
 
 

@@ -17,8 +17,8 @@ class Stack{
 };
 ```
 
-- C++ Template class: class //???
-	- parameterized on one or more types
+- C++ Template class: class parameterized on one or more types
+
 ```cpp
 template <typename T>
 class Stack{
@@ -30,9 +30,9 @@ class Stack{
 	void push(T x){...}
 	int top(){...}
 	void pop(){...}
-
 };
 
+// how to use
 Stack<int> sInts;
 sInts.push(1);
 
@@ -46,7 +46,7 @@ class List{
 		int data;
 		Node *next;
 	};
-	//...
+	...
 };
 
 template <typename T>
@@ -62,7 +62,13 @@ class List{
 		explicit Iterator(...) {...}
 		public:
 		T &operator*(){...}
-		//...
+		Iterator begin(){
+			return Iterator(thelist);
+		}
+		Iterator end(){
+			return Iterator(nullptr);
+		}
+		...
 		friend class List<T>;
 	};
 	void addToFront(const T &t){...}
@@ -80,6 +86,8 @@ for(List<int>::iterator it = l1.begin(); it != l1.end(); ++it){...}
 - can replace `List<int>::iterator` with `auto`
 
 ### STL Library
+
+- standard template library
 
 - lib `vector` provides Dynamic length array
 
@@ -103,7 +111,7 @@ for(int i; i < vecs.size() ; i++){
 }
 
 
-// can replace `vector<int>::iterator` with `auto`
+// can replace "vector<int>::iterator" with "auto"
 for(vector<int>::iterator it = vecs.begin(); it != vecs.endl() ;++it){
 	cout << *it << endl;
 }
@@ -112,7 +120,7 @@ for(vector<int>::iterator it = vecs.begin(); it != vecs.endl() ;++it){
 for(vector<int>::reverse_iterator it = vecs.rbegin(); it!=vecs.rend(); ++it){
 	// rbegin is end
 	// rend is the iterm before begin
-	//...
+	...
 }
 
 vecs.pop_back(); // removes last element
@@ -144,12 +152,11 @@ vecs.at(i); // a checked method
 - client code
 ```cpp
 vector<int> vec;
-//...
+...
 
 vec.at(i); //i is out of range
 // this code knows that an error has occurred
-
- ```
+```
 
  - in C
  	- use return value to indicate error
@@ -191,7 +198,7 @@ int main(){
 ```cpp
 void f(){
 	cout << "start f" <<endl;
-	throw out_of_range {"f threw"}; // call constructor for object `out_of_range`
+	throw out_of_range {"f threw"}; // call constructor for object "out_of_range"
 	cout << "end f";
 }
 
@@ -235,7 +242,7 @@ int main(){
 
 ```cpp
 try{
-	//...
+	...
 } catch(someExp e){
 	// partial recovery
 	throw someOtherExp {...};

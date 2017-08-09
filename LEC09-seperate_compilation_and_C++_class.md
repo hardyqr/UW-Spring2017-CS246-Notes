@@ -3,11 +3,11 @@
 
 ## Seperate Completion
 `g++14 vector.cc` <br>
--compiler tries to compile, link and produce executable
+- compiler tries to compile, link and produce executable
 
 We can use `-c` option to tell the compiler to only compile.
 
-`g++14 -c main.cc`
+`g++14 -c main.cc` <br>
 `g++14 -c vector.cc`<br>
 
 - we get `.o` object files after running above
@@ -19,23 +19,26 @@ We can use `-c` option to tell the compiler to only compile.
 
 ### Gloabal Variables
 in `abc.h`
-
-`extern global; // declare "global" only`
+```cpp
+extern int global; 
+// declare "global" only
+// without extern, it's a definition
+```
 
 in `abc.cc`
+```cpp
+int global; // declaration & definition
+```
 
-`int global; // declaration of definition`
+- cannot define a variable for multiple times, but can declare it multiple times
+
 
 - never compile a `.h` file
 - never include a `.cc` file
 
 (see `preprocess/example2`)
 
-
-###
-
-	???
-
+- `example3` does not compile because `vec.h` is included twice
 
 - Always put include guards in header files
 - Never put `using namespace std;` in header files
@@ -84,8 +87,6 @@ jane.grade();
 // inside grade, this == &jane 
 ```
 
-
-
 ```cpp
 struct student{
 	int assns,mt,final;
@@ -96,7 +97,7 @@ struct student{
 
 ```
 
-### Initial Objects
+### Initialize Objects
 
 `student billy{60,70,75};` is a C-style initialization.
 - value must be constants
@@ -111,8 +112,8 @@ In C++ we can write methods called **constructors** to construct objects.
 ```cpp
 struct student{
 	int assns,mt,final;
-	float grade(){/*...*/}
-	student (int assns, int mt, int final) {
+	float grade(){...}
+	student(int assns, int mt, int final){
 		this->assns=assns;
 		this->int=int;
 		this->final=final;
@@ -122,13 +123,14 @@ struct student{
 
 ```
 - If a 3-parameter-constructor has been implemented, it is called
-- Otherwise this uses C style initialization 
+- Otherwise this uses C style initialization
 
 ```cpp
 student billy = student{60,70,80};
 student billy = student(60,70,80); // we are actually calling the student method inside method class
 // they're equivalent.
 ```
+
 #### Uniform Initialization
 ```cpp
 int x = 5;

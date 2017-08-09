@@ -1,5 +1,5 @@
 # CS246
-# Lecture 13
+# Lecture 13: const methods, Invariants of Encaplsulation
 
 ## Const Methods
 
@@ -46,14 +46,16 @@ struct Student{
 - We can make a field mutable
 	- const methdos can modify mutable fields
 
-`static` - can be applied on fields and member functions
+#### `static`
 
-A `static` field is associated with a class and not the object of the class
+- `static` - can be applied on fields and member functions
+
+- A `static` field is associated with a class and not the object of the class
 
 ```cpp
 struct Student{
 	static int numObjects; // just a declaration
-	Student(/*...*/):/*...*/{
+	Student(...):...{
 		++numObjects;
 	}
 };
@@ -61,18 +63,18 @@ struct Student{
 ```
 
 C++ Rule: static fields must be defined in an external file.
-
-`int Student::numObjects = 0; //definition`
+```cpp
+int Student::numObjects = 0; //definition
+```
 
 - A **static member function** is associated with the class 
-	- does not need an object to call this function
+	- **does not need an object to call this function**
 	- since a static member function can be called without any object, the static member function does not have the `this` parameter
-	- static member functions can only access static fields and member functions.
+	- **static member functions can only access static fields and member functions.**
 
 ```cpp
 struct Student{
 	static int numObjects; // defined externally
-	
 	static int getCount() {
 		return numObjects;
 	}
@@ -80,11 +82,10 @@ struct Student{
 
 
 int main() {
-	Student s1{/*...*/},s2{/*...*/};
+	Student s1{...},s2{...};
 	cout << Student::numObjects << endl;
 	cout << Student::getCount() << endl;
 }
-
 ```
 
 ## Invariants of Encapsulation
@@ -119,10 +120,10 @@ Invariant: A statement / assumption that is supposed to hold true for a class fo
 
 
 - stack class 
- - the last thing we pushed, is the first thing popped.
+	- the last thing we pushed, is the first thing popped.
 
-It is hard to reason about programs if we cannot guarantee invariants.
-- it is impossible to guarantee invariants if a client has fully access to member of a class
+- It is hard to reason about programs if we cannot guarantee invariants.
+- It is impossible to guarantee invariants if a client has fully access to member of a class.
 
 
 ### Encapsulation
@@ -135,47 +136,44 @@ It is hard to reason about programs if we cannot guarantee invariants.
 Keyword: `private` / `public`
 
 ```cpp
-
 struct Vec{
-	Vec(int x, int y) //...
-		//default visibility in a struct is public
+	Vec(int x, int y) ...
+	//default visibility in a struct is public
 	private: //change visibility to private
-		int x;
-		int y;
+	int x;
+	int y;
 	puclic:
-		Vec operator+(/*...*/) //...
+	Vec operator+(...) ...
 };
-
-
 
 int main() {
 	Vec v{3,4};
-	Vec v1 = v+ v; // 2 parameter constructors and  operator + is public
+	Vec v1 = v + v; // 2 parameter constructors and  operator + is public
 	int num = v.x; // not allowed
 	int num1 = v.y; // not allowed 
-	// Vec::x, Vec::y are private and you are an ousider
+	// Vec::x, Vec::y are private and you are an outsider
 }
 ```
 
-Advice: at a minimum keep all fields private.
+Advice: at a minimum, keep all fields private.
 
-**The keyword "class" makes a class that is exactly identical to one made using "struct". The only difference default visibility in a class is private.** 
+**The keyword `class` makes a class that is exactly identical to one made using `struct`. The only difference: default visibility in a class is private.** 
 ```cpp
 class Vec{
 	//default visibility is private
 	int x;
 	int y;
 	public:
-	Vec()//...
-	Vec operator+()//...
+	Vec() ...
+	Vec operator+() ...
 };
 ```
 
-- to guarantee Node invariant
+- to guarantee `Node` invariant
 
 - `next` is either `nullptr` or points into heap
 
-create a class `List` that wraps `Node` objects
+- create a class `List` that wraps `Node` objects
 
 `List.h`
 
@@ -188,7 +186,6 @@ class List{
 	int ith(int i);
 	~List();
 };
-
 ```
 
 `List.cc`
@@ -196,10 +193,9 @@ class List{
 struct List::Node{
 	int data;
 	Node *next;
-	Node(int data, Node *next): //...
+	Node(int data, Node *next): ...
 	~Node(){ delete next;}
 }
-
 
 void List::addToFront(int n) {
 	theList = new Node(n, theList);
@@ -211,7 +207,6 @@ int List::ith(int i) {
 		cur = cur->next;
 	}
 	return cur->data;
-
 }
 
 List::~List(){
@@ -232,6 +227,8 @@ Recipe: "if you are facing this programming problem, then the following solution
 
 #### Iterator Design Pattern
 
-- create an Iterators class which manage access to the `Node`s
-- the Iterator will act as an abstraction of a pointer into the linked List
+- create an `Iterators` class which manage access to the `Node`s
+- the `Iterator` will act as an abstraction of a pointer into the linked List
+
+- see next note
 
