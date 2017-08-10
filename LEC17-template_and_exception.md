@@ -33,7 +33,7 @@ class Stack{
 };
 
 // how to use
-Stack<int> sInts;
+Stack<int> sInts; // think of vector<int> ints
 sInts.push(1);
 
 Stack<Expression *> sExps;
@@ -41,6 +41,7 @@ sExps.push(...);
 ```
 
 ```cpp
+// the old version
 class List{
 	struct Node{
 		int data;
@@ -49,6 +50,7 @@ class List{
 	...
 };
 
+// new version, with template
 template <typename T>
 class List{
 	struct Node{
@@ -103,7 +105,7 @@ vecs.emplace_back(5); // [3,4,5]
 vecs.emplace_back(6); // [3,4,5,6]
 
 // warning
-// `{}` and `()` diffrent here
+// "{}" and "()" diffrent here
 vector<int> vecs(3,4); // creates [4,4,4]
 
 for(int i; i < vecs.size() ; i++){
@@ -112,7 +114,7 @@ for(int i; i < vecs.size() ; i++){
 
 
 // can replace "vector<int>::iterator" with "auto"
-for(vector<int>::iterator it = vecs.begin(); it != vecs.endl() ;++it){
+for(vector<int>::iterator it = vecs.begin(); it != vecs.end() ;++it){
 	cout << *it << endl;
 }
 

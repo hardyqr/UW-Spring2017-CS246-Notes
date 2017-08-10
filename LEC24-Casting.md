@@ -150,7 +150,7 @@ Previous solution: Make base class abstract with a protected assignment operator
 
 ```cpp
 Comic &Comic::operator=(const Book &other) override{
-	Comic &cother = dynamic_cast<const&>(other);
+	Comic &cother = dynamic_cast<const Comic&>(other);
 	Book::operator=(cother);
 	hero = cother.hero;
 	return *this;

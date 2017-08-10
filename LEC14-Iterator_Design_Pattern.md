@@ -67,6 +67,8 @@ class List{
 	Iterator end(){
 		return Iterator{nullptr};
 	}
+	
+	~List(){delete theList;}
 }; // end List class
 
 
@@ -91,7 +93,6 @@ int main(){
 ```cpp
 auto x = y; // define x to be the same type as y
 ```
-
 
 - C++ has built-in support for Iterator Design Pattern
 	- range-based for loops

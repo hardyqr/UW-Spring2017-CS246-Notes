@@ -79,11 +79,11 @@ struct CImpl{
 
 
 class C{
-	unique_ptr<CInput> pIml;
+	unique_ptr<CImpl> pIml;
 	public:
 	void f(){
-		unique_ptr<CInput> temp{
-			new CInput{*pImpl}}; // *pImpl is an object
+		unique_ptr<CImpl> temp{
+			new CImpl{*pImpl}}; // *pImpl is an object
 		// auto temp = make_unique<CImpl>(*pImpl);
 		temp->a.method1();
 		temp->b.method2();

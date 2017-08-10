@@ -20,8 +20,11 @@ class Book{
 
 class Comic: public Book{
 	public:
-	bool isHeavy()const{return getNumPages()>30;}
+	bool isHeavy() const{return getNumPages()>30;}
 };
+
+// const objects can only call const methods
+// but regular objects can also call const methods
 
 // Comic::isHeavy overrides Book::isHeavy
 Book b{"smallBook","auth",50};
@@ -51,8 +54,7 @@ b2.isHeavy(); // Book::isHeavy runs
 - this is called **Object Cohesion**
 	- When place a subclass object in a super class variable, the subclass object is sliced
 
-- Using superclass pointers to point to subclass object
-
+- Using superclass pointers to point to subclass object (won't get sliced)
 
 ```cpp
 Comic c(...,...,40,...);
@@ -61,7 +63,7 @@ Comic *cp{&c};
 cp->isHeavy(); // Comic::isHeavy runs
 
 Book *bp{&c};
-bp->isheavy(); // Book::isHeavy runs
+bp->isheavy(); // Book::isHeavy runs, static dispatch, compiler looks at the declared type
 
 // cp, bp are all pointing to the begining of the Comic object
 ```
@@ -81,7 +83,6 @@ bp->isheavy(); // Book::isHeavy runs
 `inheritance/example3`
 
 ```cpp
-
 class Book{
 	public:
 	virtual bool isHeavy() const{...}
@@ -111,7 +112,7 @@ rb.isHeavy(); // Comic::isHeavy runs
 
 - costs more than static dispatch
 	- dereferce twice: vptr dereference + method in vtable dereference
-	- need space for vtable and vptr ????
+	- need space for vptr
 
 
 ##### collections of `Book`s
@@ -148,7 +149,6 @@ class X{
 	int *x;
 	public:
 	X(int n): X{new int[n]} {}
-		
 	~X() {delete [] x;}
 	//virtual ~X() {delete [] x;}
 }
@@ -187,6 +187,7 @@ class Y final:public X{
 
 ```
 
+#### Pure Virtual method and Abstract class
 
 ```cpp
 class Student{
@@ -221,7 +222,7 @@ class regular:public Student{
 	- cannot create instances (objects)
 	- `Student s;` won't compile
 
-- A class with at least one *pure virtual* method is called an **abstract class**
+- A class with at least one **pure virtual** method is called an **abstract class**
 
 - Abstract classes are used to 
 	- organize subclasses
@@ -231,7 +232,7 @@ class regular:public Student{
 - a subclass of an abstract class is also abstract
 	- **unless it implements all P.V. methods**
 
-- A class with no *P.V. methods* is called *concrete class*
+- A class with no **P.V. methods** is called **concrete class**
 
 
 - in UML

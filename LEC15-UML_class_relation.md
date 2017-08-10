@@ -30,6 +30,7 @@ class Basis{
 };
 
 Basis b; // won't compile since v1, v2 require default constructor
+// since we have a ctor, the default dtor goes away
 ```
 
 - to fix this
@@ -56,7 +57,7 @@ Basis b; // won't compile since v1, v2 require default constructor
 - it's like parts in a car
 
 
-[a UML graph for comp.]
+[a UML graph for comp.]()
 
 
 ### Aggregation 
@@ -69,12 +70,13 @@ Basis b; // won't compile since v1, v2 require default constructor
 	- if we copy `A`, we don't copy `B` (shallow copy)
 	- if we destroy `A`, we don't destroy `B`
 
-[a UML graph for agg.]
+[a UML graph for agg.]()
 
 
 - composition - **own** <br>
 - aggregation - **has** <br>
 - inheritance - **is**
+
 ### Inheritance
 - n. 继承
 
@@ -90,7 +92,7 @@ Basis b; // won't compile since v1, v2 require default constructor
 |- title: String|
 |- author: String|
 |- numPages: Integer|
-| - topic: String|
+|- topic: String|
 
 
 |Comic|
@@ -110,7 +112,7 @@ Basis b; // won't compile since v1, v2 require default constructor
 - a `Text` is a `Book` with an extra topic field
 - a `Comic` is a `Book` with an extra comic field
 
-[a pic. showing their relations]
+[a pic. showing their relations]()
 
 A child class inherits members (fields, methods) from its parent. Any method that you can call on a `Book` object, you can call on a `Text`/`Comic`.
 
@@ -166,7 +168,6 @@ class Book{
 };
 ```
 Protected members are accessible by **the class** but also **the subclass**.
-
 
 The `Text` class could implement:
 ```cpp

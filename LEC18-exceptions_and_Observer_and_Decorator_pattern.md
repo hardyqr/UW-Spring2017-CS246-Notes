@@ -88,7 +88,7 @@ try{
 
 ![](images/ObserverPattern.png)
 
-- if a class needs to be *abstract*, but there is no *pure virtual* method, make the destructor *pure virtual* //???
+- if a class needs to be *abstract*, but there is no *pure virtual* method, make the destructor *pure virtual* 
 
 // why the class needs to be P.V.? in what condition?
 
@@ -105,7 +105,7 @@ try{
 
 ![](DecoratorUML.png)
 
-- Decorator is a component and **has** a component
+- Decorator is a component and **has**/**owns** a component
 
 - A window with a scroll bar & a menu has a window with a menu which has a menu
 - `Window *w = new Scroll(new Menu(new PlainWindow))`
